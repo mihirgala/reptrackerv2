@@ -1,10 +1,15 @@
 import type { Metadata } from "next"
-import { Inter as FontSans } from "next/font/google"
+import { Poppins as FontSans } from "next/font/google"
 import "@/app/globals.css"
 import { cn } from "@/lib/utils"
+import { ThemeProvider } from "@/components/theme/theme-provider"
+import { Toaster } from "@/components/ui/toaster"
+import { SessionProvider } from "next-auth/react"
+import { auth } from "@/auth"
 
 const fontSans = FontSans({
   subsets: ["latin"],
+  weight: ["100","200","300","400", "500", "600", "700","600","800","900"],
   variable: "--font-sans",
 })
 
@@ -15,21 +20,32 @@ export const metadata: Metadata = {
 
 
 
-type Props = {
+interface RootLayoutProps {
   children: React.ReactNode
 }
 
-const RootLayout = async ({ children }: Props) => {
+const RootLayout = async ({ children }: RootLayoutProps) => {
+  const session = await auth()
   return (
+    <SessionProvider session={session}>
     <html lang="en">
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          "font-sans antialiased",
           fontSans.variable
-        )}
-      >{children}
+        )}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <Toaster/>
+        </ThemeProvider>
       </body>
     </html>
+    </SessionProvider>
   )
 }
 
