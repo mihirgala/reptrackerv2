@@ -5,7 +5,7 @@ import { Montserrat } from "next/font/google"
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 
-export const fontMontserrat = Montserrat({
+const fontMontserrat = Montserrat({
   subsets: ["latin"],
   weight:["800"]
 })

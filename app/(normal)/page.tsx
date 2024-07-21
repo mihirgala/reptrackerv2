@@ -7,7 +7,7 @@ import Link from "next/link"
 import hero from "@/assets/hero.svg"
 import { Features } from "@/components/normal/features"
 
-export const fontMontserrat = Montserrat({
+const fontMontserrat = Montserrat({
   subsets: ["latin"],
   weight: ["400", "700"]
 })
