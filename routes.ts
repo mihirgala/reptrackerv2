@@ -9,6 +9,7 @@ export const authRoutes = [
 export const publicRoutes = [
     "/",
     "/fqa",
+    "/pricing",
     "/legal/tos",
     "/legal/privacy",
 ]

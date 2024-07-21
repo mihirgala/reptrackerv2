@@ -7,20 +7,23 @@ generator client {
   provider = "prisma-client-js"
 }
 
-enum Plans {
-FREE
-PREMIUM
+enum Roles {
+  USER
+  TRAINER
+  ADMIN
 }
 
-
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String    @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  plan          Plans     @default(FREE)
+  id                 String    @id @default(cuid())
+  name               String?
+  email              String    @unique
+  emailVerified      DateTime?
+  image              String?
+  accounts           Account[]
+  role               Roles     @default(USER)
+  subscriptionId     String?   @unique
+  subscriptionStatus String?
+  subscriptionCurrendCycleEnd DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -64,4 +67,11 @@ model LoginCode {
   expires DateTime
 
   @@unique([email, token])
+}
+
+model Payments {
+  razorpay_payment_id      String   @id
+  razorpay_subscription_id String
+  razorpay_signature       String
+  createdAt                DateTime @default(now())
 }

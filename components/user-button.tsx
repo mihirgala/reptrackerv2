@@ -12,11 +12,11 @@ import {
     AvatarFallback,
     AvatarImage,
 } from "@/components/ui/avatar"
-import { FaUser } from "react-icons/fa6"
 import Link from "next/link"
 import { SignOutButton } from "@/components/auth/signout-button"
 import { MdOutlineSettings } from "react-icons/md"
 import { TbHelp } from "react-icons/tb"
+import { User2 } from "lucide-react"
 
 interface UserButtonProps {
     user: ExtendedUser
@@ -26,9 +26,9 @@ export const UserButton = ({ user }: UserButtonProps) => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger>
-                <Avatar>
+                <Avatar className="select-none">
                     <AvatarImage height={25} width={25} src={user?.image || ""} />
-                    <AvatarFallback><FaUser size={25} /></AvatarFallback>
+                    <AvatarFallback><User2 size={25} /></AvatarFallback>
                 </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">

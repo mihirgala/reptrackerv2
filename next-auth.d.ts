@@ -1,8 +1,8 @@
-import { Plans } from "@prisma/client";
 import NextAuth, { type DefaultSession } from "next-auth";
 
 export type ExtendedUser = DefaultSession["user"] & {
-    plan: Plans
+    plan: "FREE" | "PREMIUM"
+    currentEnd: Date
 }
 
 declare module "next-auth" {
@@ -16,5 +16,6 @@ import { JWT } from "next-auth/jwt"
 declare module "next-auth/jwt" {
     interface JWT {
         plan?: Plans
+        currenntEnd?:Date
     }
 }

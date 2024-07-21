@@ -44,6 +44,7 @@ export const {
                 session.user.name = token.name
                 session.user.email = token.email
                 session.user.plan = token.plan
+                session.user.currentEnd = token.currentEnd
             }
             return session
         },
@@ -55,11 +56,20 @@ export const {
             if (!exisitingUser) return token
 
             const existingAccount = await getAccountByUserId(exisitingUser.id)
+            if (exisitingUser.subscriptionCurrendCycleEnd) {
+                const subscriptionEndDate = new Date(exisitingUser.subscriptionCurrendCycleEnd)
+                const currentDate = new Date()
+                const userPlan = subscriptionEndDate >= currentDate ? "PREMIUM" : "FREE";
+                token.plan = userPlan
+                token.currentEnd = exisitingUser.subscriptionCurrendCycleEnd
+            }
+            else {
+                const userPlan = "FREE"
+                token.plan = userPlan
+            }
 
-            token.isOAuth = !!existingAccount
             token.name = exisitingUser.name
             token.email = exisitingUser.email
-            token.plan = exisitingUser.plan
             return token
         }
     },
