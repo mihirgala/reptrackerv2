@@ -60,7 +60,7 @@ export const getPaymentByReferenceId = async (referenceId: string) => {
         if (!referenceId) {
             throw new Error("Invalid Request")
         }
-        const payment = await db.payments.findFirst({
+        const payment = await db.payment.findFirst({
             where: {
                 razorpay_payment_id: referenceId
             }

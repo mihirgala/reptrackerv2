@@ -26,7 +26,7 @@ export const verifyPayment = async (response: RazorPayHandlerResponse) => {
             return { error: "User not found!" }
         }
 
-        const payment = await db.payments.create({
+        const payment = await db.payment.create({
             data: {
                 razorpay_payment_id,
                 razorpay_subscription_id,
