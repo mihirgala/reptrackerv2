@@ -90,3 +90,18 @@ export const sendDeleteSuccessEmail = async (email:string) => {
         console.error(error)
     }
 }
+
+export const sendSubscriptionChargedEmail = async (email:string,date:string) => {
+    const options = {
+        from: `"${siteConfig.name}" <${process.env.NODEMAILER_EMAIL}>`,
+        to: email,
+        subject: "Subscription Charged",
+        html: `<p>Your account has successfully been successfully charged and has premium untill ${date}</p>`,
+    };
+
+    try {
+        await transporter.sendMail(options);
+    } catch (error) {
+        console.error(error)
+    }
+}
