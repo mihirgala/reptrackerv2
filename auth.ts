@@ -1,6 +1,6 @@
 import NextAuth from "next-auth"
 import { PrismaAdapter } from "@auth/prisma-adapter"
-import { getAccountByUserId, getUserById } from "@/data"
+import { getAccountByUserId, getLatestWeightByPersonalInfoId, getPersonalInfoByUserId, getUserById } from "@/data"
 import authConfig from "@/auth.config"
 import { db } from "@/lib/db"
 import { sendVerificationSuccessEmail } from "@/lib/mail"
@@ -39,6 +39,10 @@ export const {
                 session.user.id = token.sub
             }
 
+            if(token.weight && session.user){
+                session.user.weight = token.weight
+            }
+
 
             if (session.user) {
                 session.user.name = token.name
@@ -54,6 +58,11 @@ export const {
             const exisitingUser = await getUserById(token.sub)
 
             if (!exisitingUser) return token
+
+            const personalInfoId = await getPersonalInfoByUserId(exisitingUser.id)
+            if(personalInfoId){
+                token.weight = await getLatestWeightByPersonalInfoId(personalInfoId.id)
+            }
 
             const existingAccount = await getAccountByUserId(exisitingUser.id)
             if (exisitingUser.subscriptionCurrendCycleEnd) {

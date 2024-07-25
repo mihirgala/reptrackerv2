@@ -17,12 +17,17 @@ import { SignOutButton } from "@/components/auth/signout-button"
 import { MdOutlineSettings } from "react-icons/md"
 import { TbHelp } from "react-icons/tb"
 import { User2 } from "lucide-react"
+import { Button } from "./ui/button"
+import { DashboardIcon } from "@radix-ui/react-icons"
 
 interface UserButtonProps {
     user: ExtendedUser
 }
 
 export const UserButton = ({ user }: UserButtonProps) => {
+    if (!user) {
+        return <Button asChild><Link href={"/auth/login"}>Login</Link></Button>
+    }
     return (
         <DropdownMenu>
             <DropdownMenuTrigger>
@@ -35,13 +40,16 @@ export const UserButton = ({ user }: UserButtonProps) => {
                 <DropdownMenuLabel>{user?.email}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                    <Link href={"/settings"} className="flex gap-x-2" ><MdOutlineSettings size={25}/>Settings</Link>
+                    <Link href={"/dashboard"} className="flex gap-x-2" ><DashboardIcon height={25} width={25} />Dashboard</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                    <Link href={"/faq"} className="flex gap-x-2" ><TbHelp size={25}/>Help</Link>
-                    </DropdownMenuItem>
+                    <Link href={"/settings"} className="flex gap-x-2" ><MdOutlineSettings size={25} />Settings</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                    <Link href={"/faq"} className="flex gap-x-2" ><TbHelp size={25} />Help</Link>
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem asChild><SignOutButton/></DropdownMenuItem>
+                <DropdownMenuItem asChild><SignOutButton /></DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu >
 

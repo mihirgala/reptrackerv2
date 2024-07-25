@@ -5,7 +5,7 @@ import { SiGooglegemini } from "react-icons/si"
 
 export const Features = () => {
     return (
-        <div className="mx-20 grid gap-5 md:grid-cols-3">
+        <div className="md:mx-20 grid gap-5 md:grid-cols-3">
             <Card>
                 <CardHeader>
                     <MdFoodBank size={40} />

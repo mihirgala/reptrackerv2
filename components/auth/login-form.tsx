@@ -95,7 +95,7 @@ export const LoginForm = () => {
                     )}
                     <Button className="w-full" type="submit" disabled={isPending}>
                         {!isPending && (!showCode ? "Continue with email" : "Login")}
-                        {isPending && (<BarLoader className="invert dark:invert-0" />)}
+                        {isPending && (<BarLoader className="dark:invert" />)}
                     </Button>
                 </form>
             </Form>

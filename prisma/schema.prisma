@@ -18,6 +18,20 @@ enum Sex {
   FEMALE
 }
 
+enum BodyCompositionGoal {
+  LOSE
+  GAIN
+  MAINTAIN
+}
+
+enum ActivityLevel {
+  SEDENTARY
+  LIGHT
+  MODERATE
+  ACTIVE
+  VERY_ACTIVE
+}
+
 model User {
   id                          String        @id @default(cuid())
   name                        String?
@@ -75,14 +89,16 @@ model LoginCode {
 }
 
 model PersonalInfo {
-  id       String    @id @default(cuid())
-  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId   String    @unique
-  sex      Sex
-  dob      DateTime
-  height   Float
-  weights  Weight[]
-  wokrouts Workout[]
+  id                  String              @id @default(cuid())
+  user                User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId              String              @unique
+  sex                 Sex
+  dob                 DateTime
+  bodyCompositionGoal BodyCompositionGoal
+  activityLevel       ActivityLevel
+  height              Float
+  weights             Weight[]
+  wokrouts            Workout[]
 }
 
 model Workout {

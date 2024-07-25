@@ -20,7 +20,7 @@ export const OAuthButtons = () => {
       }
       disabled={isPending}
       variant="outline" className="w-full">{!isPending ? <>Continue with &nbsp;<FcGoogle size={20} /></>:
-      (<BarLoader className="invert" />)
+      (<BarLoader className="dark:invert" />)
       }</Button>
   )
 }

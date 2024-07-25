@@ -35,8 +35,8 @@ export const SettingsBilling = ({ user, subscription }: SettingsBillingProps) =>
                     <h2 className="text-lg text-muted-foreground font-bold text-center">Billing</h2>
                 </CardHeader>
                 <CardContent>
-                    <p>You do not have any active subscriptions</p>
-                    <Table>
+                    <p className="text-center mx-10 text-muted-foreground font-bold">You do not have any active subscriptions</p>
+                    <Table className="my-5">
                         <TableBody>
                             <TableRow>
                                 <TableCell>Current Plan</TableCell>
@@ -47,7 +47,7 @@ export const SettingsBilling = ({ user, subscription }: SettingsBillingProps) =>
                                     <TableCell>Expires</TableCell>
                                     <TableCell>{exipres}</TableCell>
                                 </TableRow>
-                            ):(
+                            ) : (
                                 <TableRow>
                                     <TableCell>Upgrade to Premium</TableCell>
                                     <TableCell>
@@ -61,7 +61,9 @@ export const SettingsBilling = ({ user, subscription }: SettingsBillingProps) =>
                     </Table>
                     {
                         user.plan === "PREMIUM" && (
-                            <p>To start a subscription again you will have to wait for current to expire.</p>
+                            <p className="text-center mx-10 text-muted-foreground font-bold">
+                                To start a subscription again you will have to wait for current to expire.
+                            </p>
                         )
                     }
                 </CardContent>

@@ -3,6 +3,7 @@ import NextAuth, { type DefaultSession } from "next-auth";
 export type ExtendedUser = DefaultSession["user"] & {
     plan: "FREE" | "PREMIUM"
     currentEnd: Date
+    weight: number
 }
 
 declare module "next-auth" {
@@ -17,5 +18,6 @@ declare module "next-auth/jwt" {
     interface JWT {
         plan?: Plans
         currenntEnd?:Date
+        weight?: number
     }
 }
