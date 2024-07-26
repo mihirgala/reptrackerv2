@@ -18,8 +18,8 @@ const DashboardPage = async () => {
 
   return (
     <div>
-      <main className="min-h-[calc(100vh-11rem)]">
-        <h1 className={cn("text-3xl font-bold drop-shadow-lg tracking-tight text-center mb-10", fontMontserrat.className)}>Dashboard</h1>
+      <main className="min-h-[calc(100vh-11rem)] flex gap-5 flex-col justify-center items-center">
+        <h1 className={cn("text-3xl font-bold mt-10 drop-shadow-lg tracking-tight text-center", fontMontserrat.className)}>Dashboard</h1>
         {personalInfo && (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
             <TDEEComponent personalInfo={personalInfo} weight={user?.weight!} />

@@ -212,12 +212,27 @@ export const getMonthlyAvgWeightByPersonalInfoId = async (personalInfoId: string
             }
         })
 
+        const weights = [
+            { weight: 70, createdAt: new Date('2023-01-01') },
+            { weight: 72, createdAt: new Date('2023-02-01') },
+            { weight: 71, createdAt: new Date('2023-03-01') },
+            { weight: 69, createdAt: new Date('2023-04-01') },
+            { weight: 68, createdAt: new Date('2023-05-01') },
+            { weight: 70, createdAt: new Date('2023-06-01') },
+            { weight: 72, createdAt: new Date('2023-07-01') },
+            { weight: 71, createdAt: new Date('2023-08-01') },
+            { weight: 69, createdAt: new Date('2023-09-01') },
+            { weight: 68, createdAt: new Date('2023-10-01') },
+            { weight: 70, createdAt: new Date('2023-11-01') },
+            { weight: 72, createdAt: new Date('2023-12-01') }
+          ]
+
         
         const monthlyWeightSums: { [key: string]: { sum: number, count: number } } = {};
 
-        weightData.forEach(record => {
+        weights.forEach(record => {
             const date = new Date(record.createdAt);
-            const monthKey = `${date.toLocaleString("default",{month:"short"})}`; // Format: YYYY-M
+            const monthKey = `${date.toLocaleString("default",{month:"long"})}`; // Format: YYYY-M
 
             if (!monthlyWeightSums[monthKey]) {
                 monthlyWeightSums[monthKey] = { sum: 0, count: 0 };

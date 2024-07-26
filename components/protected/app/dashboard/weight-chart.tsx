@@ -1,6 +1,6 @@
 "use client"
 
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts"
 import {
   Card,
   CardContent,
@@ -60,13 +60,23 @@ export function WeightChart({ personalInfoId }: WeightChartProps) {
   if (isPending) {
     return <Card>
       <CardHeader>
+        <div  className="flex justify-between">
         <CardTitle>{currentYear} Weight Average</CardTitle>
+        <HoverCard>
+            <HoverCardTrigger asChild>
+              <Button className="m-0 p-0 hover:bg-transparent" variant={"ghost"}><Info size={20} /></Button>
+            </HoverCardTrigger>
+            <HoverCardContent align="end" sideOffset={20}>
+              <span className="text-muted-foreground text-sm font-semibold">You are able to update your weight once a day, and the weight average is calculated based on the last 30 days.</span>
+            </HoverCardContent>
+          </HoverCard>
+          </div>
         <CardDescription>
           Showing the average weight per month
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Skeleton className="min-h-[200px] md:max-h-[250px] md:w-[355px]" />
+        <Skeleton className="min-h-48 aspect-video"/>
       </CardContent>
     </Card>
   }
@@ -80,7 +90,7 @@ export function WeightChart({ personalInfoId }: WeightChartProps) {
               <Button className="m-0 p-0 hover:bg-transparent" variant={"ghost"}><Info size={20} /></Button>
             </HoverCardTrigger>
             <HoverCardContent align="end" sideOffset={20}>
-              You are able to update your weight once a day, and the weight average is calculated based on the last 30 days.
+              <span className="text-muted-foreground text-sm font-semibold">You are able to update your weight once a day, and the weight average is calculated based on the last 30 days.</span>
             </HoverCardContent>
           </HoverCard>
         </div>
@@ -89,7 +99,7 @@ export function WeightChart({ personalInfoId }: WeightChartProps) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer className="min-h-[200px] md:max-h-[250px]" config={chartConfig}>
+        <ChartContainer className="min-h-48" config={chartConfig}>
           <AreaChart
             accessibilityLayer={false}
             data={chartData}
@@ -104,11 +114,12 @@ export function WeightChart({ personalInfoId }: WeightChartProps) {
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              tickFormatter={(value) => value}
+              tickFormatter={(value) => value.slice(0,3)}
             />
+
             <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="dot" hideLabel />}
+              cursor={true}
+              content={<ChartTooltipContent indicator="dot" />}
             />
             <Area
               dataKey="weight"

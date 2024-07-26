@@ -21,7 +21,7 @@ export const BMIComponent = ({ personalInfo, weight }: BMIComponentProps) => {
               <Button className="m-0 p-0 hover:bg-transparent" variant={"ghost"}><Info size={20} /></Button>
             </HoverCardTrigger>
             <HoverCardContent align="end" sideOffset={20}>
-              BMI measures the ratio of your height to weight to assess overall health, calculated by dividing your weight in kilograms by your height in meters squared. However, BMI is not always accurate, as people with the same height and weight can have different BMIs due to varying lean mass. For more details, consult our AI assistant.
+            <span className="text-muted-foreground text-sm font-semibold">BMI measures the ratio of your height to weight to assess overall health, calculated by dividing your weight in kilograms by your height in meters squared. However, BMI is not always accurate, as people with the same height and weight can have different BMIs due to varying lean mass. For more details, consult our AI assistant.</span>
             </HoverCardContent>
           </HoverCard>
         </div>
