@@ -1,3 +1,4 @@
+import { ActivityLevel, BodyCompositionGoal, PersonalInfo } from "@prisma/client"
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -21,3 +22,37 @@ export const calculateAge = (birthDate: Date | undefined) => {
     return yearDiff
   }
 }
+
+export const calculateTDEE = (personalInfo: PersonalInfo, weight: number) => {
+  const age = calculateAge(new Date(personalInfo.dob))
+  const { sex, height, activityLevel } = personalInfo
+  let bmr: number
+
+  if (sex === 'MALE') {
+    bmr = 10 * weight + 6.25 * height - 5 * age! + 5
+  } else if (sex === 'FEMALE') {
+    bmr = 10 * weight + 6.25 * height - 5 * age! - 161
+  } else {
+    bmr = 1200
+  }
+
+  const activityLevels: { [key in ActivityLevel]: number } = {
+    "SEDENTARY": 1.2,
+    "LIGHT": 1.375,
+    "MODERATE": 1.55,
+    'ACTIVE': 1.725,
+    'VERY_ACTIVE': 1.9
+  }
+
+
+  const tdee = bmr * activityLevels[activityLevel]
+  return parseInt(tdee.toFixed(0))
+}
+
+export const bodyCompositionGoalCalories = (bodyCompositionGoal: BodyCompositionGoal) => {
+  switch (bodyCompositionGoal) {
+    case "LOSE": return { lable: "Lose fat", calories: "-500 KCAL/Day" }
+    case "GAIN": return { lable: "Gain muscle", calories: "+300 KCAL/Day" }
+    case "MAINTAIN": return { lable: "Maintenance", calories: "0 KCAL/day" }
+  }
+}  

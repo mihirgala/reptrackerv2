@@ -18,6 +18,7 @@ import { useEffect, useState, useTransition } from "react"
 import { MonthlyAvgWeight } from "@/actions/protected/app/weightavg"
 import { useRouter } from "next/navigation"
 import { Skeleton } from "@/components/ui/skeleton"
+import { ClimbingBoxLoader, FadeLoader, MoonLoader } from "react-spinners"
 
 
 const chartConfig = {
@@ -61,8 +62,7 @@ export function WeightChart({ personalInfoId }: WeightChartProps) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-      <Skeleton className="w-[300px] h-[300px]"/>
-
+        <Skeleton className="min-h-[200px] md:max-h-[250px] md:w-[355px]"/>
       </CardContent>
     </Card>
   }
@@ -75,7 +75,7 @@ export function WeightChart({ personalInfoId }: WeightChartProps) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer className="min-h-[200px] md:max-h-[250px]" config={chartConfig}>
           <AreaChart
             accessibilityLayer={false}
             data={chartData}
