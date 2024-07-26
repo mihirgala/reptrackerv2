@@ -22,7 +22,7 @@ const DashboardPage = async () => {
         <h1 className={cn("text-3xl font-bold drop-shadow-lg tracking-tight text-center mb-10", fontMontserrat.className)}>Dashboard</h1>
         {personalInfo && (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-            <TDEEComponent personalInfo={personalInfo} weight={user.weight} />
+            <TDEEComponent personalInfo={personalInfo} weight={user?.weight!} />
             <WeightChart personalInfoId={personalInfo?.id} />
           </div>
         )}
