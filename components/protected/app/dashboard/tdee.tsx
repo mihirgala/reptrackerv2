@@ -22,7 +22,7 @@ export const TDEEComponent = ({ personalInfo, weight }: TDEEComponentProps) => {
                             <Button className="m-0 p-0 hover:bg-transparent" variant={"ghost"}><Info size={20} /></Button>
                             </HoverCardTrigger>
                         <HoverCardContent align="end" sideOffset={20}>
-                        <span className="text-muted-foreground text-sm font-semibold">TDEE (Total Daily Energy Expenditure) is the energy needed to maintain your weight. Based on your fitness goals, you're assigned a target calorie intake or burn. For example, if your TDEE is 2000 KCAL and your goal is -500 KCAL/day, you should aim to burn or eat 500 KCAL less daily, resulting in a 1500 KCAL/day intake.</span>
+                        <span className="text-muted-foreground text-sm font-semibold">TDEE (Total Daily Energy Expenditure) is the energy needed to maintain your weight. Based on your fitness goals, you&apos;re assigned a target calorie intake or burn. For example, if your TDEE is 2000 KCAL and your goal is -500 KCAL/day, you should aim to burn or eat 500 KCAL less daily, resulting in a 1500 KCAL/day intake.</span>
                         </HoverCardContent>
                     </HoverCard>
                 </div>
