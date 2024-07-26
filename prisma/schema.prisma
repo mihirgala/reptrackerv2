@@ -109,6 +109,11 @@ model Workout {
   createdAt      DateTime     @default(now())
 }
 
+
+enum ExerciseMetric {
+  KG
+  LBS
+}
 model Exercise {
   id        String   @id @default(cuid())
   workout   Workout  @relation(fields: [workoutId], references: [id], onDelete: Cascade)
@@ -117,6 +122,7 @@ model Exercise {
   sets      String
   reps      String
   weight    String?
+  metric    ExerciseMetric?
   createdAt DateTime @default(now())
 }
 

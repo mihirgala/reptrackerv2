@@ -76,7 +76,7 @@ export function WeightChart({ personalInfoId }: WeightChartProps) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Skeleton className="min-h-48 aspect-video"/>
+        <Skeleton className="aspect-video"/>
       </CardContent>
     </Card>
   }
@@ -99,7 +99,7 @@ export function WeightChart({ personalInfoId }: WeightChartProps) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer className="min-h-48" config={chartConfig}>
+        <ChartContainer config={chartConfig}>
           <AreaChart
             accessibilityLayer={false}
             data={chartData}
