@@ -19,6 +19,10 @@ import { MonthlyAvgWeight } from "@/actions/protected/app/weightavg"
 import { useRouter } from "next/navigation"
 import { Skeleton } from "@/components/ui/skeleton"
 import { ClimbingBoxLoader, FadeLoader, MoonLoader } from "react-spinners"
+import { HoverCard } from "@radix-ui/react-hover-card"
+import { HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
+import { Info } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 
 const chartConfig = {
@@ -40,20 +44,20 @@ export function WeightChart({ personalInfoId }: WeightChartProps) {
   const [chartData, setChartData] = useState<ChartData[]>([])
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
-  useEffect(()=>{
+  useEffect(() => {
     startTransition(async () => {
       const data = await MonthlyAvgWeight(personalInfoId)
-      if(data.success){
+      if (data.success) {
         setChartData(data.chartData)
       }
-      else{
+      else {
         router.refresh()
       }
     })
-  },[])
+  }, [])
 
   const currentYear = new Date().getFullYear()
-  if(isPending){
+  if (isPending) {
     return <Card>
       <CardHeader>
         <CardTitle>{currentYear} Weight Average</CardTitle>
@@ -62,14 +66,24 @@ export function WeightChart({ personalInfoId }: WeightChartProps) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Skeleton className="min-h-[200px] md:max-h-[250px] md:w-[355px]"/>
+        <Skeleton className="min-h-[200px] md:max-h-[250px] md:w-[355px]" />
       </CardContent>
     </Card>
   }
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{currentYear} Weight Average</CardTitle>
+        <div className="flex justify-between">
+          <CardTitle>{currentYear} Weight Average</CardTitle>
+          <HoverCard>
+            <HoverCardTrigger asChild>
+              <Button className="m-0 p-0 hover:bg-transparent" variant={"ghost"}><Info size={20} /></Button>
+            </HoverCardTrigger>
+            <HoverCardContent align="end" sideOffset={20}>
+              You are able to update your weight once a day, and the weight average is calculated based on the last 30 days.
+            </HoverCardContent>
+          </HoverCard>
+        </div>
         <CardDescription>
           Showing the average weight per month
         </CardDescription>

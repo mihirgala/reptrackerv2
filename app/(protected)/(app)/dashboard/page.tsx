@@ -1,6 +1,6 @@
+import { BMIComponent } from "@/components/protected/app/dashboard/bmi"
 import { TDEEComponent } from "@/components/protected/app/dashboard/tdee"
 import { WeightChart } from "@/components/protected/app/dashboard/weight-chart"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { getMonthlyAvgWeightByPersonalInfoId, getPersonalInfoByUserId } from "@/data"
 import { getUser } from "@/lib/auth"
 import { cn } from "@/lib/utils"
@@ -24,6 +24,7 @@ const DashboardPage = async () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
             <TDEEComponent personalInfo={personalInfo} weight={user?.weight!} />
             <WeightChart personalInfoId={personalInfo?.id} />
+            <BMIComponent personalInfo={personalInfo} weight={user?.weight!} />
           </div>
         )}
       </main>

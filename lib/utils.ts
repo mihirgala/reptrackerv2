@@ -55,4 +55,23 @@ export const bodyCompositionGoalCalories = (bodyCompositionGoal: BodyComposition
     case "GAIN": return { lable: "Gain muscle", calories: "+300 KCAL/Day" }
     case "MAINTAIN": return { lable: "Maintenance", calories: "0 KCAL/day" }
   }
-}  
+}
+
+type bmicolors = "#ef4444" | "#22c55e" | "#ea580c" | "#dc2626"
+export const calculateBMI = (personalInfo: PersonalInfo, weight: number): { lable: string, value: number, color: bmicolors } | undefined => {
+
+  let BMI = weight / ((personalInfo.height / 100) * (personalInfo.height / 100))
+  BMI = parseFloat(BMI.toFixed(2))
+  if (BMI < 18.5) {
+    return { lable: "Underweight", value: BMI, color: "#ef4444" }
+  }
+  else if (BMI < 25 && BMI >= 18.5) {
+    return { lable: "Normal", value: BMI, color: "#22c55e" }
+  }
+  else if (BMI < 30 && BMI >= 25) {
+    return { lable: "Overweight", value: BMI, color: "#ea580c" }
+  }
+  else if (BMI >= 30) {
+    return { lable: "Obese", value: BMI, color: "#dc2626" }
+  }
+}

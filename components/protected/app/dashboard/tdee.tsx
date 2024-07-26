@@ -1,6 +1,9 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { bodyCompositionGoalCalories, calculateTDEE } from "@/lib/utils"
 import { PersonalInfo } from "@prisma/client"
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
+import { Info } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 interface TDEEComponentProps {
     personalInfo: PersonalInfo
@@ -12,12 +15,22 @@ export const TDEEComponent = ({ personalInfo, weight }: TDEEComponentProps) => {
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Total Daily Energy Expenditure</CardTitle>
-                <CardDescription>Acount of calories consumed by you each day</CardDescription>
+                <div className="flex justify-between">
+                    <CardTitle>Total Daily Energy Expenditure</CardTitle>
+                    <HoverCard>
+                        <HoverCardTrigger asChild>
+                            <Button className="m-0 p-0 hover:bg-transparent" variant={"ghost"}><Info size={20} /></Button>
+                            </HoverCardTrigger>
+                        <HoverCardContent align="end" sideOffset={20}>
+                        TDEE (Total Daily Energy Expenditure) is the energy needed to maintain your weight. Based on your fitness goals, you're assigned a target calorie intake or burn. For example, if your TDEE is 2000 KCAL and your goal is -500 KCAL/day, you should aim to burn or eat 500 KCAL less daily, resulting in a 1500 KCAL/day intake.
+                        </HoverCardContent>
+                    </HoverCard>
+                </div>
+                <CardDescription>Acount of calories required by you each day</CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-5">
                 <div>
-                    <h2 className="text-6xl font-extrabold text-center text-foreground">{TDEE}</h2>
+                    <h2 className="text-6xl font-extrabold text-center text-primary">{TDEE}</h2>
                     <h2 className="text-xl text-center font-bold text-muted-foreground">KCAL/Day</h2>
                 </div>
                 <div>
