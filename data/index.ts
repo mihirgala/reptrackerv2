@@ -211,12 +211,12 @@ export const getMonthlyAvgWeightByPersonalInfoId = async (personalInfoId: string
                 createdAt: true
             }
         })
-        
+
         const monthlyWeightSums: { [key: string]: { sum: number, count: number } } = {};
 
         weightData.forEach(record => {
             const date = new Date(record.createdAt);
-            const monthKey = `${date.toLocaleString("default",{month:"long"})}`; // Format: YYYY-M
+            const monthKey = `${date.toLocaleString("default", { month: "long" })}`; // Format: YYYY-M
 
             if (!monthlyWeightSums[monthKey]) {
                 monthlyWeightSums[monthKey] = { sum: 0, count: 0 };
@@ -239,5 +239,37 @@ export const getMonthlyAvgWeightByPersonalInfoId = async (personalInfoId: string
     } catch (e) {
         console.error("Error fetching monthly average weight:", e)
         throw e
+    }
+}
+
+export const getWorkoutsByPersonalInfoId = async (personalInfoId: string) => {
+    try {
+        if (!personalInfoId) {
+            throw new Error("Invalid request: personalInfoId is required")
+        }
+        const workouts = await db.workout.findMany({
+            where: {
+                personalInfoId
+            }
+        })
+        return workouts
+    } catch (e) {
+        console.error(e)
+    }
+}
+
+export const getWorkoutCountByPersonalInfoId = async (personalInfoId: string) => {
+    try {
+        if (!personalInfoId) {
+            throw new Error("Invalid request: personalInfoId is required")
+        }
+        const workouts = await db.workout.count({
+            where: {
+                personalInfoId
+            }
+        })
+        return workouts
+    } catch (e) {
+        console.error(e)
     }
 }

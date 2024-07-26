@@ -1,4 +1,4 @@
-import { ActivityLevel, BodyCompositionGoal, Sex } from "@prisma/client";
+import { ActivityLevel, BodyCompositionGoal, intensityMetric, Sex } from "@prisma/client";
 import * as z from "zod"
 
 export const loginSchema = z.object({
@@ -68,4 +68,39 @@ export const bodyCompositionGoalSchema = z.object({
 
 export const activityLevelSchema = z.object({
     activityLevel: z.enum([ActivityLevel.SEDENTARY, ActivityLevel.LIGHT, ActivityLevel.MODERATE, ActivityLevel.ACTIVE, ActivityLevel.VERY_ACTIVE])
+})
+
+export const exerciseSchema = z.object({
+    name: z.string().min(2, {
+        message: "Name must be at least 2 characters"
+    }).max(50, {
+        message: "Name can be at most 50 characters"
+    }),
+    sets: z.string().min(1, {
+        message: "Minimum 1 character"
+    }).max(10, {
+        message: "Maximum 10 characters"
+    }),
+    reps: z.string().min(1, {
+        message: "Minimum 1 character"
+    }).max(10, {
+        message: "Maximum 10 characters"
+    }),
+    intensity: z.string().min(1, {
+        message: "Minimum 1 character"
+    }).max(10, {
+        message: "Maximum 10 characters"
+    }),
+    intensityMetric: z.optional(z.enum([intensityMetric.KG, intensityMetric.LBS, intensityMetric.SECONDS, intensityMetric.MINUTES],))
+})
+
+export const workoutSchema = z.object({
+    name: z.string().min(3, {
+        message: "Name must be at least 3 characters"
+    }).max(50, {
+        message: "Name can be at most 50 characters"
+    }),
+    exercises: z.array(exerciseSchema).min(1, {
+        message: "Exercises must be add least 1 exercise"
+    })
 })
