@@ -52,7 +52,7 @@ export const UpdateWeight = ({ personalInfo }: UpdateWeightProps) => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline"><Pencil1Icon height={20} width={20} /></Button>
+                <Button aria-label="Update weight" variant="outline"><Pencil1Icon height={20} width={20} /></Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>

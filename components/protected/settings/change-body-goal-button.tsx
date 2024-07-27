@@ -52,7 +52,7 @@ export const ChangeBodyCompButton = ({ personalInfo }: ChangeBodyCompButtonProps
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline"><Pencil1Icon height={20} width={20} /></Button>
+                <Button aria-label="Update fitness goal" variant="outline"><Pencil1Icon height={20} width={20} /></Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>

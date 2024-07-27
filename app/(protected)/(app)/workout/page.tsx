@@ -7,6 +7,8 @@ import { Badge } from "@/components/ui/badge"
 import { Montserrat } from "next/font/google"
 import Link from "next/link"
 import { SiGooglegemini } from "react-icons/si"
+import { WorkoutSheet } from "@/components/protected/app/workout/workout-sheet"
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 
 const fontMontserrat = Montserrat({
   subsets: ["latin"],
@@ -30,7 +32,7 @@ const WorkoutPage = async () => {
           <p className="text-sm text-muted-foreground font-semibold">Sheets remaining</p><Badge>{sheetsRemaining}</Badge>
         </div>
         <div className="flex gap-5 self-center my-10">
-          <Button disabled={disableCreateWorkout} className="p-0 m-0 aspect-square" variant={"outline"} asChild={!disableCreateWorkout}>
+          <Button disabled={disableCreateWorkout} aria-label="Create workout" className="p-0 m-0 aspect-square" variant={"outline"} asChild={!disableCreateWorkout}>
             {!disableCreateWorkout ? (
               <Link href={"/workout/create"}>
                 <Plus size={20} />
@@ -38,8 +40,8 @@ const WorkoutPage = async () => {
             ) : (<Plus size={20} />)}
 
           </Button>
-          <Button className="p-0 m-0 aspect-square" variant={"outline"}><List size={20} /></Button>
-          <Button disabled className="p-0 m-0 aspect-square border-primary" variant={"outline"}><SiGooglegemini size={20} /></Button>
+          <Button aria-label="View Presets" className="p-0 m-0 aspect-square" variant={"outline"}><List size={20} /></Button>
+          <Button aria-label="Generate workout with AI" disabled={user?.plan !== "PREMIUM" } className="p-0 m-0 aspect-square border-primary" variant={"outline"}><SiGooglegemini size={20} /></Button>
         </div>
         {workouts?.length === 0 && <div className="flex justify-center items-center">
           <div className="text-center">
@@ -47,11 +49,19 @@ const WorkoutPage = async () => {
             <p className="text-sm">Create your first workout to get started</p>
           </div>
         </div>}
-        {workouts && workouts.map((workout) => (
-          <div key={workout.id}>
-            <h2>{workout.name}</h2>
-          </div>
-        ))}
+        <div className="flex justify-center items-center">
+        <Carousel className="w-full md:w-[70%]">
+          <CarouselContent>
+          {workouts && workouts.map((workout) => (
+              <CarouselItem key={workout.id}>
+                <WorkoutSheet workout={workout} personalInfoId={personalInfoId} />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="hidden lg:flex" />
+          <CarouselNext className="hidden lg:flex" />
+        </Carousel>
+        </div>
       </main>
     </div>
   )

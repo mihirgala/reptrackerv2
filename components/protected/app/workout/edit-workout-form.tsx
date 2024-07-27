@@ -11,24 +11,26 @@ import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
-import { intensityMetric } from "@prisma/client"
+import { Exercise, intensityMetric, Workout } from "@prisma/client"
 import { createWorkout } from "@/actions/protected/app/create-workout"
 import { useToast } from "@/components/ui/use-toast"
 import { useRouter } from "next/navigation"
 import { BarLoader } from "react-spinners"
+import { editWorkout } from "@/actions/protected/app/edit-workout"
 
 
-interface CreateWorkoutFormProps {
-    personalInfoId: string
+interface EditWorkoutFormProps {
+    workout: Workout
+    exercises: Exercise[]
 }
-export const CreateWorkoutForm = ({ personalInfoId }: CreateWorkoutFormProps) => {
+export const EditWorkoutForm = ({ workout, exercises }: EditWorkoutFormProps) => {
     const [isPending, startTransition] = useTransition()
     const { toast } = useToast()
     const router = useRouter()
     const form = useForm<z.infer<typeof workoutSchema>>({
         resolver: zodResolver(workoutSchema),
         defaultValues: {
-            name: "",
+            name: workout.name || "",
         }
     })
     const control = form.control
@@ -39,25 +41,28 @@ export const CreateWorkoutForm = ({ personalInfoId }: CreateWorkoutFormProps) =>
 
     const handleSubmit = (values: z.infer<typeof workoutSchema>) => {
         startTransition(async () => {
-            const data = await createWorkout(values, personalInfoId!)
+            const data = await editWorkout(values, workout)
             if (data.error) {
                 toast({
                     title: "Error",
                     description: data.error,
                 })
             }
-            if(data.success){
+            if (data.success) {
                 router.push("/workout")
             }
         })
     }
 
     useEffect(() => {
-        append({
-            name: "",
-            intensity: "",
-            reps: "",
-            sets: "",
+        exercises.map(exercise => {
+            append({
+                name: exercise.name,
+                intensity: exercise.intensity || "",
+                intensityMetric: exercise.metric || undefined,
+                reps: exercise.reps,
+                sets: exercise.sets,
+            })
         })
     }, [])
 

@@ -4,6 +4,7 @@ import { auth } from "@/auth"
 import { getPersonalInfoByUserId } from "@/data"
 import { db } from "@/lib/db"
 import { workoutSchema } from "@/schemas"
+import { revalidatePath, revalidateTag } from "next/cache"
 import * as z from "zod"
 
 export const createWorkout = async (values: z.infer<typeof workoutSchema>, personalInfoId: string) => {
@@ -41,6 +42,7 @@ export const createWorkout = async (values: z.infer<typeof workoutSchema>, perso
             })
         })
 
+        revalidatePath("/workout")
         return {success:true}
 
     } catch (e) {

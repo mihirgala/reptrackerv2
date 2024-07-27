@@ -29,7 +29,7 @@ export const BMIComponent = ({ personalInfo, weight }: BMIComponentProps) => {
       </CardHeader>
       <CardContent>
         <div>
-          <h2 className={`text-6xl font-extrabold text-center text-[${BMI?.color}]`}>{BMI?.value}</h2>
+          <h2 className={`text-6xl font-extrabold text-center`} style={{ color: BMI?.color }}>{BMI?.value}</h2>
           <p className="text-xl text-center font-bold text-muted-foreground">{BMI?.lable}</p>
         </div>
       </CardContent>

@@ -273,3 +273,51 @@ export const getWorkoutCountByPersonalInfoId = async (personalInfoId: string) =>
         console.error(e)
     }
 }
+
+export const getExercisesByWorkoutId = async (workoutId: string) => {
+    try {
+        if (!workoutId) {
+            throw new Error("Invalid request: workoutId is required")
+        }
+        const exercises = await db.exercise.findMany({
+            where: {
+                workoutId
+            }
+        })
+        return exercises
+    } catch (e) {
+        console.error(e)
+    }
+}
+
+export const getPersonalInfoById = async (id: string) => {
+    try {
+        if (!id) {
+            throw new Error("Invalid request: id is required")
+        }
+        const personalInfo = await db.personalInfo.findFirst({
+            where: {
+                id
+            }
+        })
+        return personalInfo
+    } catch (e) {
+        console.error(e)
+    }
+}
+
+export const getWorkoutById = async (id: string) => {
+    try {
+        if (!id) {
+            throw new Error("Invalid request: id is required")
+        }
+        const workout = await db.workout.findFirst({
+            where: {
+                id
+            }
+        })
+        return workout
+    } catch (e) {
+        console.error(e)
+    }
+}

@@ -9,7 +9,7 @@ import { auth } from "@/auth"
 
 const fontSans = FontSans({
   subsets: ["latin"],
-  weight: ["100","200","300","400", "500", "600", "700","600","800","900"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "600", "800", "900"],
   variable: "--font-sans",
 })
 
@@ -28,23 +28,23 @@ const RootLayout = async ({ children }: RootLayoutProps) => {
   const session = await auth()
   return (
     <SessionProvider session={session}>
-    <html lang="en">
-      <body
-        className={cn(
-          "font-sans antialiased",
-          fontSans.variable
-        )}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-          <Toaster/>
-        </ThemeProvider>
-      </body>
-    </html>
+      <html lang="en">
+        <body
+          className={cn(
+            "font-sans antialiased pb-5",
+            fontSans.variable
+          )}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+            <Toaster />
+          </ThemeProvider>
+        </body>
+      </html>
     </SessionProvider>
   )
 }
