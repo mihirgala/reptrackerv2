@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 import { SessionProvider } from "next-auth/react"
 import { auth } from "@/auth"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -42,6 +43,7 @@ const RootLayout = async ({ children }: RootLayoutProps) => {
           >
             {children}
             <Toaster />
+            <SpeedInsights/>
           </ThemeProvider>
         </body>
       </html>
