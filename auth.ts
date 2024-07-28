@@ -42,8 +42,7 @@ export const {
             if(token.weight && session.user){
                 session.user.weight = token.weight
             }
-
-
+            
             if (session.user) {
                 session.user.name = token.name
                 session.user.email = token.email
@@ -64,7 +63,6 @@ export const {
                 token.weight = await getLatestWeightByPersonalInfoId(personalInfoId.id)
             }
 
-            const existingAccount = await getAccountByUserId(exisitingUser.id)
             if (exisitingUser.subscriptionCurrendCycleEnd) {
                 const subscriptionEndDate = new Date(exisitingUser.subscriptionCurrendCycleEnd)
                 const currentDate = new Date()

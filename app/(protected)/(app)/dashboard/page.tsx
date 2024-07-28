@@ -1,7 +1,7 @@
 import { BMIComponent } from "@/components/protected/app/dashboard/bmi"
 import { TDEEComponent } from "@/components/protected/app/dashboard/tdee"
 import { WeightChart } from "@/components/protected/app/dashboard/weight-chart"
-import { getMonthlyAvgWeightByPersonalInfoId, getPersonalInfoByUserId } from "@/data"
+import { getPersonalInfoByUserId } from "@/data"
 import { getUser } from "@/lib/auth"
 import { cn } from "@/lib/utils"
 import { Montserrat } from "next/font/google"
@@ -12,9 +12,9 @@ const fontMontserrat = Montserrat({
 })
 
 const DashboardPage = async () => {
+
   const user = await getUser()
   const personalInfo = await getPersonalInfoByUserId(user?.id!)
-  const chartData = await getMonthlyAvgWeightByPersonalInfoId(personalInfo?.id!)
 
   return (
     <div>
