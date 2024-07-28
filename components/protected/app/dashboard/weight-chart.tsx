@@ -33,53 +33,17 @@ const chartConfig = {
 } satisfies ChartConfig
 
 interface WeightChartProps {
-  personalInfoId: string
+  chartData: ChartData[]
 }
 
 type ChartData = {
   month: string
   weight: number
 }
-export function WeightChart({ personalInfoId }: WeightChartProps) {
-  const [chartData, setChartData] = useState<ChartData[]>([])
-  const router = useRouter()
-  const [isPending, startTransition] = useTransition()
-  useEffect(() => {
-    startTransition(async () => {
-      const data = await MonthlyAvgWeight(personalInfoId)
-      if (data.success) {
-        setChartData(data.chartData)
-      }
-      else {
-        router.refresh()
-      }
-    })
-  }, [])
+export const WeightChart = ({ chartData }: WeightChartProps) => {
 
   const currentYear = new Date().getFullYear()
-  if (isPending) {
-    return <Card>
-      <CardHeader>
-        <div  className="flex justify-between">
-        <CardTitle>{currentYear} Weight Average</CardTitle>
-        <HoverCard>
-            <HoverCardTrigger asChild>
-              <Button className="m-0 p-0 hover:bg-transparent" variant={"ghost"}><Info size={20} /></Button>
-            </HoverCardTrigger>
-            <HoverCardContent align="end" sideOffset={20}>
-              <span className="text-muted-foreground text-sm font-semibold">You are able to update your weight once a day, and the weight average is calculated based on the last 30 days.</span>
-            </HoverCardContent>
-          </HoverCard>
-          </div>
-        <CardDescription>
-          Showing the average weight per month
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Skeleton className="aspect-video"/>
-      </CardContent>
-    </Card>
-  }
+
   return (
     <Card>
       <CardHeader>
@@ -114,7 +78,7 @@ export function WeightChart({ personalInfoId }: WeightChartProps) {
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              tickFormatter={(value) => value.slice(0,3)}
+              tickFormatter={(value) => value.slice(0, 3)}
             />
 
             <ChartTooltip

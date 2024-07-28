@@ -1,7 +1,7 @@
 import { BMIComponent } from "@/components/protected/app/dashboard/bmi"
 import { TDEEComponent } from "@/components/protected/app/dashboard/tdee"
 import { WeightChart } from "@/components/protected/app/dashboard/weight-chart"
-import { getPersonalInfoByUserId } from "@/data"
+import { getMonthlyAvgWeightByPersonalInfoId, getPersonalInfoByUserId } from "@/data"
 import { getUser } from "@/lib/auth"
 import { cn } from "@/lib/utils"
 import { Montserrat } from "next/font/google"
@@ -15,6 +15,7 @@ const DashboardPage = async () => {
 
   const user = await getUser()
   const personalInfo = await getPersonalInfoByUserId(user?.id!)
+  const chartData = await getMonthlyAvgWeightByPersonalInfoId(personalInfo?.id!)
 
   return (
     <div>
@@ -23,7 +24,7 @@ const DashboardPage = async () => {
         {personalInfo && (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
             <TDEEComponent personalInfo={personalInfo} weight={user?.weight!} />
-            <WeightChart personalInfoId={personalInfo?.id} />
+            <WeightChart chartData={chartData} />
             <BMIComponent personalInfo={personalInfo} weight={user?.weight!} />
           </div>
         )}
