@@ -1,7 +1,6 @@
 "use server"
+
 import { db } from "@/lib/db";
-import { razorpay } from "@/lib/razorpay";
-import { RazorPayHandlerResponse } from "@/types";
 import crypto from "crypto"
 
 export const verifyPayment = async (response: RazorPayHandlerResponse) => {
@@ -14,7 +13,7 @@ export const verifyPayment = async (response: RazorPayHandlerResponse) => {
 
         if (generatedSignature !== razorpay_signature) {
             const Errtype = "Invalid Signature"
-            // redirect(`/subscribe/failure?type=${Errtype}`)
+
             return { error: Errtype }
         }
         const user = await db.user.findFirst({

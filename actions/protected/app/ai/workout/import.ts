@@ -3,7 +3,6 @@
 import { auth } from "@/auth"
 import { getPersonalInfoByUserId, getWorkoutsByPersonalInfoId } from "@/data"
 import { db } from "@/lib/db"
-import { Workout } from "@/types"
 import { revalidatePath } from "next/cache"
 
 export const importGeneratedWorkouts = async (workouts: Workout[], personalInfoId: string) => {

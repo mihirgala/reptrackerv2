@@ -27,7 +27,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { Workout } from "@/types"
+
 import { importGeneratedWorkouts } from "@/actions/protected/app/ai/workout/import"
 import { useRouter } from "next/navigation"
 
