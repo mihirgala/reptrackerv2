@@ -42,13 +42,12 @@ const WorkoutPage = async () => {
 
           </Button>
           <Button disabled aria-label="View Presets" className="p-0 m-0 aspect-square" variant={"outline"}><List size={20} /></Button>
-          <Button disabled={disableGenerateWorkout} aria-label="Create workout" className="p-0 m-0 aspect-square border-primary" variant={"outline"} asChild={!disableCreateWorkout}>
+          <Button disabled={disableGenerateWorkout} aria-label="Create workout" className="p-0 m-0 aspect-square border-primary" variant={"outline"} asChild={!disableGenerateWorkout}>
             {!disableGenerateWorkout ? (
               <Link href={"/workout/generate"}>
                 <SiGooglegemini size={20} />
               </Link>
             ) : (<SiGooglegemini size={20} />)}
-
           </Button>
         </div>
         {workouts?.length === 0 && <div className="flex justify-center items-center">
