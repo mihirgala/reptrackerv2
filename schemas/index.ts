@@ -83,14 +83,14 @@ export const exerciseSchema = z.object({
     }),
     reps: z.string().min(1, {
         message: "Minimum 1 character"
-    }).max(10, {
-        message: "Maximum 10 characters"
+    }).max(30, {
+        message: "Maximum 30 characters"
     }),
-    intensity: z.string().min(1, {
+    intensity: z.optional(z.string().min(1, {
         message: "Minimum 1 character"
     }).max(10, {
         message: "Maximum 10 characters"
-    }),
+    })),
     intensityMetric: z.optional(z.enum([intensityMetric.KG, intensityMetric.LBS, intensityMetric.SECONDS, intensityMetric.MINUTES],))
 })
 
@@ -103,4 +103,14 @@ export const workoutSchema = z.object({
     exercises: z.array(exerciseSchema).min(1, {
         message: "Exercises must be add least 1 exercise"
     })
+})
+
+export const generateWorkoutSchema = z.object({
+    numberOfDays: z.string().refine(value => {
+        const days = parseInt(value)
+        return days > 0 && days < 8
+    }, { message: "Number of days must be between 1 and 7" }),
+    note: z.optional(
+        z.string()
+    )
 })

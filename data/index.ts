@@ -321,3 +321,19 @@ export const getWorkoutById = async (id: string) => {
         console.error(e)
     }
 }
+
+export const getLatestGeneratedWorkout = async (userId:string) => {
+    try{
+        if(!userId){
+            throw new Error("Invalid request: userId is required")
+        }
+        const lastGeneratedWorkout = await db.lastGeneratedWorkout.findFirst({
+            where:{
+                userId
+            }
+        })
+        return lastGeneratedWorkout
+    }catch(e){
+        console.error(e)
+    }
+}

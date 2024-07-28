@@ -1,0 +1,9 @@
+import { GoogleGenerativeAI } from "@google/generative-ai"
+
+export const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
+
+export const JSONmodel = genAI.getGenerativeModel({
+    model: "gemini-1.5-flash",
+    // Set the `responseMimeType` to output JSON
+    generationConfig: { responseMimeType: "application/json" }
+  })

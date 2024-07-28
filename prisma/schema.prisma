@@ -33,16 +33,17 @@ enum ActivityLevel {
 }
 
 model User {
-  id                          String        @id @default(cuid())
+  id                          String                @id @default(cuid())
   name                        String?
-  email                       String        @unique
+  email                       String                @unique
   emailVerified               DateTime?
   image                       String?
   accounts                    Account[]
-  role                        Roles         @default(USER)
-  subscriptionId              String?       @unique
+  role                        Roles                 @default(USER)
+  subscriptionId              String?               @unique
   subscriptionCurrendCycleEnd DateTime?
   personalInfo                PersonalInfo?
+  lastGeneratedWorkout        lastGeneratedWorkout?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -142,4 +143,11 @@ model Payment {
   razorpay_subscription_id String
   razorpay_signature       String
   createdAt                DateTime @default(now())
+}
+
+model lastGeneratedWorkout {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
 }

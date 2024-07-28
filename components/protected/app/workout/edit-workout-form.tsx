@@ -216,7 +216,7 @@ export const EditWorkoutForm = ({ workout, exercises }: EditWorkoutFormProps) =>
                                 disabled={isPending} className="w-full">
                                 Add Exercise
                             </Button>
-                            <Button type="submit" disabled={isPending || !form.formState.isValid} className="w-full">
+                            <Button type="submit" disabled={isPending} className="w-full">
                                 {isPending ? (<BarLoader className="dark:invert" />) : "Save"}
                             </Button>
                         </div>

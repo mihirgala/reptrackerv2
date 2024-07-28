@@ -16,7 +16,7 @@ import Link from "next/link"
 import { SignOutButton } from "@/components/auth/signout-button"
 import { MdOutlineSettings } from "react-icons/md"
 import { TbHelp } from "react-icons/tb"
-import { User2 } from "lucide-react"
+import { DumbbellIcon, User2 } from "lucide-react"
 import { Button } from "./ui/button"
 import { DashboardIcon } from "@radix-ui/react-icons"
 
@@ -41,6 +41,9 @@ export const UserButton = ({ user }: UserButtonProps) => {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                     <Link href={"/dashboard"} className="flex gap-x-2" ><DashboardIcon height={25} width={25} />Dashboard</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                    <Link href={"/workout"} className="flex gap-x-2" ><DumbbellIcon size={25} />Workout</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                     <Link href={"/settings"} className="flex gap-x-2" ><MdOutlineSettings size={25} />Settings</Link>

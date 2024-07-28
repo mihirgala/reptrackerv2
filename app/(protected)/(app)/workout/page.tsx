@@ -23,15 +23,16 @@ const WorkoutPage = async () => {
   const workouts = await getWorkoutsByPersonalInfoId(personalInfoId!)
   const sheetsRemaining = workouts ? 7 - workouts?.length : 7
   const disableCreateWorkout = workouts ? (workouts?.length > 6 ? true : false) : false
+  const disableGenerateWorkout = user?.plan !== "PREMIUM"
 
   return (
     <div>
-      <main className="min-h-[calc(100vh-4rem)] flex flex-col gap-5">
+      <main className="min-h-[calc(100vh-4rem)] flex flex-col gap-2">
         <h1 className={cn("text-3xl font-bold drop-shadow-lg tracking-tight text-center", fontMontserrat.className)}>Workouts</h1>
         <div className="flex gap-2 items-center self-end">
           <p className="text-sm text-muted-foreground font-semibold">Sheets remaining</p><Badge>{sheetsRemaining}</Badge>
         </div>
-        <div className="flex gap-5 self-center my-10">
+        <div className="flex gap-5 self-center mt-10">
           <Button disabled={disableCreateWorkout} aria-label="Create workout" className="p-0 m-0 aspect-square" variant={"outline"} asChild={!disableCreateWorkout}>
             {!disableCreateWorkout ? (
               <Link href={"/workout/create"}>
@@ -40,8 +41,15 @@ const WorkoutPage = async () => {
             ) : (<Plus size={20} />)}
 
           </Button>
-          <Button aria-label="View Presets" className="p-0 m-0 aspect-square" variant={"outline"}><List size={20} /></Button>
-          <Button aria-label="Generate workout with AI" disabled={user?.plan !== "PREMIUM" } className="p-0 m-0 aspect-square border-primary" variant={"outline"}><SiGooglegemini size={20} /></Button>
+          <Button disabled aria-label="View Presets" className="p-0 m-0 aspect-square" variant={"outline"}><List size={20} /></Button>
+          <Button disabled={disableGenerateWorkout} aria-label="Create workout" className="p-0 m-0 aspect-square border-primary" variant={"outline"} asChild={!disableCreateWorkout}>
+            {!disableGenerateWorkout ? (
+              <Link href={"/workout/generate"}>
+                <SiGooglegemini size={20} />
+              </Link>
+            ) : (<SiGooglegemini size={20} />)}
+
+          </Button>
         </div>
         {workouts?.length === 0 && <div className="flex justify-center items-center">
           <div className="text-center">
