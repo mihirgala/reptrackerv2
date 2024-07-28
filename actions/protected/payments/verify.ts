@@ -1,6 +1,7 @@
 "use server"
 import { db } from "@/lib/db";
 import { razorpay } from "@/lib/razorpay";
+import { RazorPayHandlerResponse } from "@/types";
 import crypto from "crypto"
 
 export const verifyPayment = async (response: RazorPayHandlerResponse) => {
