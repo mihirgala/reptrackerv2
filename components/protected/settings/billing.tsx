@@ -48,14 +48,25 @@ export const SettingsBilling = ({ user, subscription }: SettingsBillingProps) =>
                                     <TableCell>{exipres}</TableCell>
                                 </TableRow>
                             ) : (
-                                <TableRow>
-                                    <TableCell>Upgrade to Premium</TableCell>
-                                    <TableCell>
-                                        <Button asChild>
-                                            <Link href="/subscribe">Subscribe</Link>
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
+                                <>
+                                    {!subscription && (<TableRow>
+                                        <TableCell>Upgrade to Premium</TableCell>
+                                        <TableCell>
+                                            <Button asChild>
+                                                <Link href="/subscribe">Subscribe</Link>
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>)}
+
+                                    {subscription && (<TableRow>
+                                        <TableHead>Razorpay</TableHead>
+                                        <TableCell>
+                                            <Button asChild>
+                                                <Link className="w-full" target="_blank" href={`${subscription?.short_url}`}>Manage</Link>
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>)}
+                                </>
                             )}
                         </TableBody>
                     </Table>

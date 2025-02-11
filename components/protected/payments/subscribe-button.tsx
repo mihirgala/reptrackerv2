@@ -42,11 +42,21 @@ export const SubscribeButton = ({ user }: SubscribeButtonProps) => {
                     image: "/your_logo.jpg",
                     handler: async function (response: RazorPayHandlerResponse) {
                         const data = await verifyPayment(response)
-                        if(data.error){
+                        if (data.error) {
                             router.push(`/subscribe/failure?type=${data.error}`)
                         }
-                        if(data.success){
+                        if (data.success) {
                             router.push(`/subscribe/success?reference_id=${data.referenceId}`)
+                        }
+                    },
+                    modal: {
+                        ondismiss: function () {
+                            toast({
+                                title: "User cancelled the payment process"
+                            })
+                            setTimeout(() => {
+                                router.push("/settings")
+                            }, 5000)
                         }
                     },
                     prefill: {
@@ -73,7 +83,7 @@ export const SubscribeButton = ({ user }: SubscribeButtonProps) => {
             }}
             disabled={isPending || isOn}
             className="ml-auto">
-                {isPending || isOn ? (<BarLoader className="dark:invert"/>) : "Subscribe"}
-            </Button>
+            {isPending || isOn ? (<BarLoader className="dark:invert" />) : "Subscribe"}
+        </Button>
     )
 }

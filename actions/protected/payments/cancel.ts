@@ -6,7 +6,7 @@ import { db } from "@/lib/db"
 import { razorpay } from "@/lib/razorpay"
 import subscriptions from "razorpay/dist/types/subscriptions"
 
-export const cancleSubscription = async () => {
+export const cancelSubscription = async () => {
     try {
         const session = await auth()
         const user = await getUserById(session?.user.id!)

@@ -57,8 +57,12 @@ export const GenerateWorkoutComponent = ({ personalInfoId }: GenerateWorkoutComp
             }
             if (data.success) {
                 const workouts = JSON.parse(data.data)
-                console.log(workouts)
-                setWorkouts(workouts)
+                if(workouts.items){
+                    setWorkouts(workouts.items)
+                }
+                else{
+                    setWorkouts(workouts)
+                }
             }
         })
     }
@@ -184,7 +188,7 @@ export const GenerateWorkoutComponent = ({ personalInfoId }: GenerateWorkoutComp
                 {workouts.length > 0 && (
                     <div className="flex my-5 w-full justify-end">
                         <AlertDialog>
-                            <AlertDialogTrigger>Import</AlertDialogTrigger>
+                            <AlertDialogTrigger asChild><Button>Import</Button></AlertDialogTrigger>
                             <AlertDialogContent>
                                 <AlertDialogHeader>
                                     <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>

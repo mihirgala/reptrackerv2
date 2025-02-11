@@ -9,6 +9,16 @@ import Link from "next/link"
 import { SiGooglegemini } from "react-icons/si"
 import { WorkoutSheet } from "@/components/protected/app/workout/workout-sheet"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 
 const fontMontserrat = Montserrat({
   subsets: ["latin"],
@@ -39,9 +49,23 @@ const WorkoutPage = async () => {
                 <Plus size={20} />
               </Link>
             ) : (<Plus size={20} />)}
-
           </Button>
-          <Button disabled aria-label="View Presets" className="p-0 m-0 aspect-square" variant={"outline"}><List size={20} /></Button>
+          <Dialog>
+      <DialogTrigger asChild>
+      <Button aria-label="View Presets" className="p-0 m-0 aspect-square" variant={"outline"}><List size={20} /></Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>View Presets</DialogTitle>
+          <DialogDescription>
+            View and use the available presets to create your workout
+          </DialogDescription>
+        </DialogHeader>
+        <div>
+          content goes here
+        </div>
+      </DialogContent>
+    </Dialog>
           <Button disabled={disableGenerateWorkout} aria-label="Create workout" className="p-0 m-0 aspect-square border-primary" variant={"outline"} asChild={!disableGenerateWorkout}>
             {!disableGenerateWorkout ? (
               <Link href={"/workout/generate"}>

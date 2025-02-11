@@ -6,6 +6,7 @@ import { auth } from "@/auth"
 import { db } from "@/lib/db"
 import { getLatestGeneratedWorkout } from "@/data"
 import { JSONmodel } from "@/lib/google-generative-ai"
+import { lastGeneratedWorkout } from "@prisma/client"
 export const generateWorkouts = async (values: z.infer<typeof generateWorkoutSchema>) => {
   try {
     const session = await auth()
@@ -33,7 +34,7 @@ export const generateWorkouts = async (values: z.infer<typeof generateWorkoutSch
       }
     }
 
-
+    let lastGeneratedWorkoutId
     if (lastGeneratedWorkout) {
       await db.lastGeneratedWorkout.update({
         where: {
@@ -43,13 +44,15 @@ export const generateWorkouts = async (values: z.infer<typeof generateWorkoutSch
           expiresAt
         }
       })
+      lastGeneratedWorkoutId=lastGeneratedWorkout.id
     } else {
-      await db.lastGeneratedWorkout.create({
+      const newLastGeneratedWorkout = await db.lastGeneratedWorkout.create({
         data: {
           userId: session?.user.id as string,
           expiresAt
         }
       })
+      lastGeneratedWorkoutId=newLastGeneratedWorkout.id
     }
 
     const validatedFields = generateWorkoutSchema.safeParse(values)
@@ -100,6 +103,14 @@ export const generateWorkouts = async (values: z.infer<typeof generateWorkoutSch
           `
     const result = await JSONmodel.generateContent(prompt)
     const content = result?.response.text()
+    if(!content){
+      await db.lastGeneratedWorkout.delete({
+        where: {
+          id: lastGeneratedWorkoutId
+        }
+      })
+      return { error: "Something went wrong" }
+    }
     return { success: true, data: content }
   } catch (e) {
     console.error(e)

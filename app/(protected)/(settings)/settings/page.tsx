@@ -1,3 +1,4 @@
+import { cancelSubscription } from "@/actions/protected/payments/cancel"
 import { SettingsAccount } from "@/components/protected/settings/account"
 import { SettingsBilling } from "@/components/protected/settings/billing"
 import { SettingsPersonal } from "@/components/protected/settings/personal-info"
@@ -7,7 +8,6 @@ import { getUser } from "@/lib/auth"
 import { cn } from "@/lib/utils"
 import { CreditCard, User2, WeightIcon } from "lucide-react"
 import { Montserrat } from "next/font/google"
-import { redirect } from "next/navigation"
 
 const fontMontserrat = Montserrat({
     subsets: ["latin"],
@@ -19,8 +19,8 @@ const SettingsPage = async () => {
     if(!user) return null
     const subscription = await getSubscriptionByUserId(user.id!)
     const personalInfo = await getPersonalInfoByUserId(user.id!)
-    if(!personalInfo){
-        redirect("/onboarding")
+    if(user.plan === "FREE" && (subscription?.expire_by && new Date(subscription.expire_by) < new Date())){
+        await cancelSubscription()
     }
     return (
         <div className="pt-10">

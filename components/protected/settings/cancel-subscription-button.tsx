@@ -1,6 +1,6 @@
 "use client"
 
-import { cancleSubscription } from "@/actions/protected/payments/cancel"
+import { cancelSubscription } from "@/actions/protected/payments/cancel"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
 import {
@@ -20,7 +20,7 @@ export const CancelSubscriptionButton = () => {
     const router = useRouter()
     const { toast } = useToast()
     const handleClick = async () => {
-        const data = await cancleSubscription()
+        const data = await cancelSubscription()
         if (data?.error) {
             toast({
                 title: data.error

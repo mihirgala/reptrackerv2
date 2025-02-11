@@ -250,6 +250,9 @@ export const getWorkoutsByPersonalInfoId = async (personalInfoId: string) => {
         const workouts = await db.workout.findMany({
             where: {
                 personalInfoId
+            },
+            orderBy:{
+                createdAt:"asc"
             }
         })
         return workouts
