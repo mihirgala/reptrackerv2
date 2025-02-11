@@ -59,7 +59,20 @@ export const WeightChart = ({ chartData }: WeightChartProps) => {
           </HoverCard>
         </div>
         <CardDescription>
-          Showing the average weight per month
+        {chartData.length > 0 ? 
+          <>
+            <p className="text-sm text-muted-foreground">
+              Showing the average weight per month
+            </p>
+            <p className="text-sm text-muted-foreground">
+              Last updated {chartData[chartData.length - 1].month}
+            </p>
+          </>
+          :
+          <p className="text-sm text-muted-foreground">
+            No data available, update your weight in settings
+          </p>
+        }
         </CardDescription>
       </CardHeader>
       <CardContent>
