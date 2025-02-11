@@ -13,3 +13,21 @@ type Workout = {
     name: string,
     exercises: Exercise[]
 }
+
+type Meal = {
+    name: string,
+    Foods: Food[],
+    protein: string,
+    carbohydrates: string,
+    fats: string
+    totalCalories: string,
+}
+
+
+type Food = {
+    name: string,
+    protein: string,
+    carbohydrates: string,
+    fats: string,
+    calories: string
+}

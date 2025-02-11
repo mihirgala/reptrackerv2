@@ -44,6 +44,7 @@ model User {
   subscriptionCurrendCycleEnd DateTime?
   personalInfo                PersonalInfo?
   lastGeneratedWorkout        lastGeneratedWorkout?
+  lastGeneratedMealPlan       lastGeneratedMealPlan?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -146,6 +147,35 @@ model Payment {
 }
 
 model lastGeneratedWorkout {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+}
+
+model Meals {
+  id        String   @id @default(cuid())
+  name      String
+  FoodItems FoodItem[]
+  calories  String
+  protein   String
+  carbs     String
+  fats      String
+  createdAt DateTime @default(now())
+}
+model FoodItem{
+  id        String   @id @default(cuid())
+  mealId    String
+  meal      Meals    @relation(fields: [mealId], references: [id], onDelete: Cascade)
+  name      String
+  calories  String
+  protein   String
+  carbs     String
+  fats      String
+  createdAt DateTime @default(now())
+}
+
+model lastGeneratedMealPlan {
   id        String   @id @default(cuid())
   userId    String   @unique
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)

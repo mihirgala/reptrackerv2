@@ -340,3 +340,19 @@ export const getLatestGeneratedWorkout = async (userId:string) => {
         console.error(e)
     }
 }
+
+export const getLatestGeneratedMealPlan = async (userId:string) => {
+    try{
+        if(!userId){
+            throw new Error("Invalid request: userId is required")
+        }
+        const lastGeneratedMealPlan = await db.lastGeneratedMealPlan.findFirst({
+            where:{
+                userId
+            }
+        })
+        return lastGeneratedMealPlan
+    }catch(e){
+        console.error(e)
+    }
+}

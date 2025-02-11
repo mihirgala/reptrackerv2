@@ -114,3 +114,16 @@ export const generateWorkoutSchema = z.object({
         z.string()
     )
 })
+
+export const generateMealPlanSchema = z.object({
+    numberOfMeals: z.string().refine(value => {
+        const meals = parseInt(value)
+        return meals > 0 && meals < 8
+    }, { message: "Number of meals must be between 1 and 7" }),
+    preference: z.string().refine(value => {
+        return ["VEGAN", "VEGETARIAN_WITHOUT_EGGS", "VEGETARIAN", "NON_VEGETARIAN"].includes(value)
+    }, { message: "Preference must be one of VEGAN,VEGETARIAN WITHOUT EGGS, VEGETARIAN, NON_VEGETARIAN" }),
+    note: z.optional(
+        z.string()
+    )
+})

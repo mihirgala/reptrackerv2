@@ -6,7 +6,6 @@ import { auth } from "@/auth"
 import { db } from "@/lib/db"
 import { getLatestGeneratedWorkout } from "@/data"
 import { JSONmodel } from "@/lib/google-generative-ai"
-import { lastGeneratedWorkout } from "@prisma/client"
 export const generateWorkouts = async (values: z.infer<typeof generateWorkoutSchema>) => {
   try {
     const session = await auth()

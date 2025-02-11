@@ -1,6 +1,5 @@
 "use client"
 
-import { generateWorkouts } from "@/actions/protected/app/ai/workout/generate"
 import { Button } from "@/components/ui/button"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import { useToast } from "@/components/ui/use-toast"
@@ -10,7 +9,7 @@ import { BarLoader } from "react-spinners"
 import * as z from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { generateWorkoutSchema } from "@/schemas"
+import { generateMealPlanSchema } from "@/schemas"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
@@ -28,26 +27,32 @@ import {
 
 import { importGeneratedWorkouts } from "@/actions/protected/app/ai/workout/import"
 import { useRouter } from "next/navigation"
-import { PreviewWorkoutSheet } from "./preview-workout-sheet"
+import { generateMealPlan } from "@/actions/protected/app/ai/mealplan/generate"
 
 interface GenerateWorkoutComponentProps {
     personalInfoId: string
+    macros:{
+        totalCalories: string;
+        protein: string;
+        carbohydrates: string;
+        fat: string;
+    }
 }
 
 
 
-export const GenerateWorkoutComponent = ({ personalInfoId }: GenerateWorkoutComponentProps) => {
-    const [workouts, setWorkouts] = useState<Workout[]>([])
+export const GenerateMealPlan = ({ personalInfoId,macros }: GenerateWorkoutComponentProps) => {
+    const [mealPlan, setMealPlan] = useState<Meal[]>([])
     const [isPending, startTransition] = useTransition()
     const { toast } = useToast()
-    const form = useForm<z.infer<typeof generateWorkoutSchema>>({
-        resolver: zodResolver(generateWorkoutSchema),
+    const form = useForm<z.infer<typeof generateMealPlanSchema>>({
+        resolver: zodResolver(generateMealPlanSchema),
     })
     const router = useRouter()
 
-    const generate = (values: z.infer<typeof generateWorkoutSchema>) => {
+    const generate = (values: z.infer<typeof generateMealPlanSchema>) => {
         startTransition(async () => {
-            const data = await generateWorkouts(values)
+            const data = await generateMealPlan(values,macros)
             if (data.error) {
                 toast({
                     title: "Error",
@@ -56,10 +61,10 @@ export const GenerateWorkoutComponent = ({ personalInfoId }: GenerateWorkoutComp
             }
             if (data.success) {
                 const workouts = JSON.parse(data.data)
-                if(workouts.items){
+                if (workouts.items) {
                     setWorkouts(workouts.items)
                 }
-                else{
+                else {
                     setWorkouts(workouts)
                 }
             }
@@ -75,14 +80,14 @@ export const GenerateWorkoutComponent = ({ personalInfoId }: GenerateWorkoutComp
                     description: data.error
                 })
             }
-            if(data.success){
-                router.push("/workout")
+            if (data.success) {
+                router.refresh()
             }
         })
     }
 
     return (
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center w-full">
             <Carousel className="w-full md:w-[70%]">
                 <CarouselContent>
                     {workouts.length === 0 && (
@@ -91,16 +96,16 @@ export const GenerateWorkoutComponent = ({ personalInfoId }: GenerateWorkoutComp
                                 <form className="w-full flex flex-col justify-center space-y-2" onSubmit={form.handleSubmit(generate)}>
                                     <FormField
                                         control={form.control}
-                                        name={"numberOfDays"}
+                                        name={"numberOfMeals"}
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormLabel>
-                                                    Number of days
+                                                    Number of Meals
                                                 </FormLabel>
                                                 <Select onValueChange={field.onChange}>
                                                     <FormControl>
                                                         <SelectTrigger className="md:w-full" disabled={isPending}>
-                                                            <SelectValue placeholder="Days" />
+                                                            <SelectValue placeholder="Meals per day" />
                                                         </SelectTrigger>
                                                     </FormControl>
                                                     <SelectContent>
@@ -111,6 +116,30 @@ export const GenerateWorkoutComponent = ({ personalInfoId }: GenerateWorkoutComp
                                                         <SelectItem value="5">5</SelectItem>
                                                         <SelectItem value="6">6</SelectItem>
                                                         <SelectItem value="7">7</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )} />
+                                    <FormField
+                                        control={form.control}
+                                        name={"preference"}
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>
+                                                    Preference
+                                                </FormLabel>
+                                                <Select onValueChange={field.onChange}>
+                                                    <FormControl>
+                                                        <SelectTrigger className="md:w-full" disabled={isPending}>
+                                                            <SelectValue placeholder="Vegeterian" />
+                                                        </SelectTrigger>
+                                                    </FormControl>
+                                                    <SelectContent>
+                                                        <SelectItem value="VEGAN">Vegan</SelectItem>
+                                                        <SelectItem value="VEGETARIAN_WITHOUT_EGGS">Vegetarian without eggs</SelectItem>
+                                                        <SelectItem value="VEGETARIAN">Vegeterian</SelectItem>
+                                                        <SelectItem value="NON_VEGETARIAN">Non vegeterian</SelectItem>
                                                     </SelectContent>
                                                 </Select>
                                                 <FormMessage />
@@ -137,7 +166,7 @@ export const GenerateWorkoutComponent = ({ personalInfoId }: GenerateWorkoutComp
                                     <Button className="w-full" type="submit" disabled={isPending}>
                                         {!isPending ? (
                                             <>
-                                                Generate Workouts&nbsp;
+                                                Generate Mealplan&nbsp;
                                                 <SiGooglegemini size={20} />
                                             </>
                                         ) : (<BarLoader className="dark:invert" />)}

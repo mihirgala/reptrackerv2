@@ -11,14 +11,13 @@ import { WorkoutSheet } from "@/components/protected/app/workout/workout-sheet"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { WorkoutPresetList } from "@/components/protected/app/workout/preset"
 
 const fontMontserrat = Montserrat({
   subsets: ["latin"],
@@ -62,7 +61,7 @@ const WorkoutPage = async () => {
           </DialogDescription>
         </DialogHeader>
         <div>
-          content goes here
+          <WorkoutPresetList personalInfoId={personalInfoId}/>
         </div>
       </DialogContent>
     </Dialog>

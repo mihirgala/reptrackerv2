@@ -75,3 +75,30 @@ export const calculateBMI = (personalInfo: PersonalInfo, weight: number): { labl
     return { lable: "Obese", value: BMI, color: "#dc2626" }
   }
 }
+
+export const calculateMacros = (tdee: number, bodyCompositionGoal: BodyCompositionGoal) => {
+  let adjustedTDEE = tdee
+
+  if (bodyCompositionGoal === "LOSE") {
+    adjustedTDEE = tdee - (tdee * 0.15)
+  } else if (bodyCompositionGoal === "GAIN") {
+    adjustedTDEE = tdee + (tdee * 0.15)
+  }
+
+  const proteinRatio = 0.3
+  const carbRatio = 0.4
+  const fatRatio = 0.3
+
+  const protein = (adjustedTDEE * proteinRatio) / 4
+  const carbohydrates = (adjustedTDEE * carbRatio) / 4
+  const fat = (adjustedTDEE * fatRatio) / 9
+
+  const totalCalories = (protein * 4) + (carbohydrates * 4) + (fat * 9)
+
+  return {
+    totalCalories: totalCalories.toFixed(0),
+    protein: protein.toFixed(0),
+    carbohydrates: carbohydrates.toFixed(0),
+    fat: fat.toFixed(0),
+  }
+}
