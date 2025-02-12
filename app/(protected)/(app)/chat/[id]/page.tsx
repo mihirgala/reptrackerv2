@@ -11,7 +11,7 @@ interface ChatbotIdPageProps {
     }
 }
 
-function convertMessage(messages: { role: "user" | "model" | string; content: string }[]): Message[] {
+function convertMessage(messages: { role: "user" | "model" | string; content: string }[]){
     return messages.map(message => {
       return {
         role: message.role,
