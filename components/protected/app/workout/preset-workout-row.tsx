@@ -1,6 +1,6 @@
 "use client"
 
-import { Split } from "@/app/(protected)/(app)/workout/preview/splits"
+import { Split } from "@/app/(protected)/(app)/workout/preset/splits"
 import { TableCell, TableRow } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
 import { BeatLoader } from "react-spinners"
