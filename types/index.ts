@@ -16,13 +16,15 @@ type Workout = {
 
 type Meal = {
     name: string,
-    Foods: Food[],
-    protein: string,
-    carbohydrates: string,
-    fats: string
-    totalCalories: string,
-}
+    foods: Food[],
+    total: {
+        protein: string,
+        carbohydrates: string,
+        fats: string
+        calories: string,
+    }
 
+}
 
 type Food = {
     name: string,

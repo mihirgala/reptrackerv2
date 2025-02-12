@@ -356,3 +356,38 @@ export const getLatestGeneratedMealPlan = async (userId:string) => {
         console.error(e)
     }
 }
+
+export const getMealPlanByPersonalInfoId = async (personalInfoId: string) => {
+    try {
+        if (!personalInfoId) {
+            throw new Error("Invalid request: personalInfoId is required")
+        }
+        const mealPlan = await db.meal.findMany({
+            where: {
+                personalInfoId
+            },
+            orderBy:{
+                createdAt:"asc"
+            }
+        })
+        return mealPlan
+    } catch (e) {
+        console.error(e)
+    }
+}
+
+export const getFoodsByMealId = async (mealId: string) => {
+    try {
+        if (!mealId) {
+            throw new Error("Invalid request: mealId is required")
+        }
+        const foods = await db.food.findMany({
+            where: {
+                mealId
+            }
+        })
+        return foods
+    } catch (e) {
+        console.error(e)
+    }
+}

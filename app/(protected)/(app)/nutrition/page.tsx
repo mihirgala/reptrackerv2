@@ -1,9 +1,13 @@
+import { DBMealSheet } from "@/components/protected/app/nutrition/db-meal-sheet"
 import { GenerateMealPlan } from "@/components/protected/app/nutrition/generate-mealplan"
+import { MealSheet } from "@/components/protected/app/nutrition/meal-sheet"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { getPersonalInfoByUserId } from "@/data"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { getMealPlanByPersonalInfoId, getPersonalInfoByUserId } from "@/data"
 import { getUser } from "@/lib/auth"
 import { calculateMacros, calculateTDEE, cn } from "@/lib/utils"
 import { Info } from "lucide-react"
@@ -19,7 +23,9 @@ const NutritionPage = async () => {
     const user = await getUser()
     const personalInfo = await getPersonalInfoByUserId(user?.id!)
     const tdee = calculateTDEE(personalInfo!, user?.weight!)
+    const mealPlan = await getMealPlanByPersonalInfoId(personalInfo?.id!)
     const macros = calculateMacros(tdee, personalInfo?.bodyCompositionGoal!)
+    const hasmealPlan = !!mealPlan?.length
     return (
         <div>
             <main className="min-h-[calc(100vh-4rem)] flex flex-col gap-2">
@@ -48,9 +54,27 @@ const NutritionPage = async () => {
                                 </div>
                             )}
                             {user?.plan === "PREMIUM" && (
-                                <div className="flex justify-center items-center w-full">
-                                    <GenerateMealPlan personalInfoId={personalInfo?.id!} macros={macros}/>
-                                </div>
+                                <Tabs defaultValue={hasmealPlan ? "meals" : "generate"} className="">
+                                    <TabsList className="grid w-full grid-cols-2">
+                                        <TabsTrigger disabled={!hasmealPlan} value="meals">Meals</TabsTrigger>
+                                        <TabsTrigger value="generate">Generate</TabsTrigger>
+                                    </TabsList>
+                                    <TabsContent value="meals">
+                                        <Carousel>
+                                            <CarouselContent>
+                                                {mealPlan?.map((meal, index) => (
+                                                    <CarouselItem key={index}>
+                                                        <DBMealSheet meal={meal} />
+                                                    </CarouselItem>
+                                                ))}
+                                            </CarouselContent>
+                                                <p className="text-center font-semibold text-sm text-secondary-foreground">Slide to view</p>
+                                        </Carousel>
+                                    </TabsContent>
+                                    <TabsContent value="generate">
+                                        <GenerateMealPlan personalInfoId={personalInfo?.id!} macros={macros} />
+                                    </TabsContent>
+                                </Tabs>
                             )}
                         </CardContent>
                     </Card>
@@ -99,8 +123,8 @@ const NutritionPage = async () => {
                         </CardContent>
                     </Card>
                 </div>
-            </main>
-        </div>
+            </main >
+        </div >
     )
 }
 

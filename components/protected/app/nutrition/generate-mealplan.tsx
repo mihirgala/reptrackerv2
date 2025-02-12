@@ -24,10 +24,10 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-
-import { importGeneratedWorkouts } from "@/actions/protected/app/ai/workout/import"
 import { useRouter } from "next/navigation"
 import { generateMealPlan } from "@/actions/protected/app/ai/mealplan/generate"
+import { MealSheet } from "./meal-sheet"
+import { saveMealPlan } from "@/actions/protected/app/ai/mealplan/save"
 
 interface GenerateWorkoutComponentProps {
     personalInfoId: string
@@ -60,20 +60,20 @@ export const GenerateMealPlan = ({ personalInfoId,macros }: GenerateWorkoutCompo
                 })
             }
             if (data.success) {
-                const workouts = JSON.parse(data.data)
-                if (workouts.items) {
-                    setWorkouts(workouts.items)
+                const mealPlan = JSON.parse(data.data)
+                if (mealPlan.items) {
+                    setMealPlan(mealPlan.items)
                 }
                 else {
-                    setWorkouts(workouts)
+                    setMealPlan(mealPlan)
                 }
             }
         })
     }
 
-    const handleImport = () => {
+    const handleSave = () => {
         startTransition(async () => {
-            const data = await importGeneratedWorkouts(workouts, personalInfoId)
+            const data = await saveMealPlan(mealPlan, personalInfoId)
             if (data.error) {
                 toast({
                     title: "Error",
@@ -90,7 +90,7 @@ export const GenerateMealPlan = ({ personalInfoId,macros }: GenerateWorkoutCompo
         <div className="flex justify-center items-center w-full">
             <Carousel className="w-full md:w-[70%]">
                 <CarouselContent>
-                    {workouts.length === 0 && (
+                    {mealPlan.length === 0 && (
                         <CarouselItem className="flex justify-center">
                             <Form {...form}>
                                 <form className="w-full flex flex-col justify-center space-y-2" onSubmit={form.handleSubmit(generate)}>
@@ -176,28 +176,28 @@ export const GenerateMealPlan = ({ personalInfoId,macros }: GenerateWorkoutCompo
 
                         </CarouselItem>
                     )}
-                    {workouts.length > 0 && workouts.map((workout, index) => (
+                    {mealPlan.length > 0 && mealPlan.map((meal, index) => (
                         <CarouselItem key={index}>
-                            <PreviewWorkoutSheet workout={workout} />
+                            <MealSheet meal={meal} />
                         </CarouselItem>
                     ))}
                 </CarouselContent>
                 <CarouselPrevious className="hidden lg:flex" />
                 <CarouselNext className="hidden lg:flex" />
-                {workouts.length > 0 && (
+                {mealPlan.length > 0 && (
                     <div className="flex my-5 w-full justify-end">
                         <AlertDialog>
-                            <AlertDialogTrigger asChild><Button>Import</Button></AlertDialogTrigger>
+                            <AlertDialogTrigger asChild><Button>Save</Button></AlertDialogTrigger>
                             <AlertDialogContent>
                                 <AlertDialogHeader>
                                     <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                                     <AlertDialogDescription>
-                                        This action cannot be undone. This will permanently delete your previous workouts.
+                                        This action cannot be undone. This will permanently delete your previous meal plan.
                                     </AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
                                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                    <AlertDialogAction onClick={() => handleImport()}>Continue</AlertDialogAction>
+                                    <AlertDialogAction onClick={() => handleSave()}>Continue</AlertDialogAction>
                                 </AlertDialogFooter>
                             </AlertDialogContent>
                         </AlertDialog>

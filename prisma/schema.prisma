@@ -101,6 +101,7 @@ model PersonalInfo {
   height              Float
   weights             Weight[]
   wokrouts            Workout[]
+  meals               Meal[]
 }
 
 model Workout {
@@ -153,24 +154,26 @@ model lastGeneratedWorkout {
   expiresAt DateTime
 }
 
-model Meals {
+model Meal {
   id        String   @id @default(cuid())
   name      String
-  FoodItems FoodItem[]
+  foods food[]
   calories  String
   protein   String
-  carbs     String
+  carbohydrates     String
   fats      String
   createdAt DateTime @default(now())
+  personalInfoId String
+  personalInfo PersonalInfo @relation(fields: [personalInfoId], references: [id], onDelete: Cascade)
 }
-model FoodItem{
+model food{
   id        String   @id @default(cuid())
   mealId    String
-  meal      Meals    @relation(fields: [mealId], references: [id], onDelete: Cascade)
+  meal      Meal    @relation(fields: [mealId], references: [id], onDelete: Cascade)
   name      String
   calories  String
   protein   String
-  carbs     String
+  carbohydrates     String
   fats      String
   createdAt DateTime @default(now())
 }

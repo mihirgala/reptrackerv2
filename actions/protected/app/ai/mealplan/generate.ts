@@ -82,7 +82,7 @@ export const generateMealPlan = async (values: z.infer<typeof generateMealPlanSc
             "type": "string",
             "description": "Meal name (e.g., Breakfast, Lunch, Mid-morning snack, etc.)"
           },
-          "Foods": {
+          "foods": {
             "type": "array",
             "minItems": 1,
             "maxItems": 6,
@@ -94,19 +94,19 @@ export const generateMealPlan = async (values: z.infer<typeof generateMealPlanSc
                   "description": "Food Name (e.g., Banana, Milk, Oatmeal, etc.)"
                 },
                 "protein": {
-                  "type": "number",
+                  "type": "string",
                   "description": "Protein in grams (e.g., 10)"
                 },
                 "carbohydrates": {
-                  "type": "number",
+                  "type": "string",
                   "description": "Carbohydrates in grams (e.g., 10)"
                 },
                 "fats": {
-                  "type": "number",
+                  "type": "string",
                   "description": "Fats in grams (e.g., 10)"
                 },
                 "calories": {
-                  "type": "number",
+                  "type": "string",
                   "description": "Total Calories (e.g., 230)"
                 }
               },
@@ -117,19 +117,19 @@ export const generateMealPlan = async (values: z.infer<typeof generateMealPlanSc
             "type": "object",
             "properties": {
               "protein": {
-                "type": "number",
+                "type": "string",
                 "description": "Total Protein in grams for the meal"
               },
               "carbohydrates": {
-                "type": "number",
+                "type": "string",
                 "description": "Total Carbohydrates in grams for the meal"
               },
               "fats": {
-                "type": "number",
+                "type": "string",
                 "description": "Total Fats in grams for the meal"
               },
               "calories": {
-                "type": "number",
+                "type": "string",
                 "description": "Total Calories for the meal"
               }
             },
