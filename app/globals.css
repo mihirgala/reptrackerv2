@@ -3,6 +3,18 @@
 @tailwind utilities;
 
 
+::-webkit-scrollbar{
+  height:5px;
+  width: 5px;
+}
+::-webkit-scrollbar-track{
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: #b15e00;
+}
+
 
 html {
   scroll-behavior: smooth;

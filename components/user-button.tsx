@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/avatar"
 import Link from "next/link"
 import { SignOutButton } from "@/components/auth/signout-button"
-import { MdOutlineSettings } from "react-icons/md"
+import { MdChatBubble, MdOutlineSettings } from "react-icons/md"
 import { TbHelp } from "react-icons/tb"
 import { DumbbellIcon, User2, UtensilsCrossed } from "lucide-react"
 import { Button } from "./ui/button"
@@ -39,6 +39,9 @@ export const UserButton = ({ user }: UserButtonProps) => {
             <DropdownMenuContent align="end">
                 <DropdownMenuLabel>{user?.email}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                    <Link href={"/chat"} className="flex gap-x-2" ><MdChatBubble size={25} />Chatbot</Link>
+                </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                     <Link href={"/dashboard"} className="flex gap-x-2" ><DashboardIcon height={25} width={25} />Dashboard</Link>
                 </DropdownMenuItem>

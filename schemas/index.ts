@@ -127,3 +127,16 @@ export const generateMealPlanSchema = z.object({
         z.string()
     )
 })
+
+export const ChatBotSchema = z.object({
+    prompt: z.string()
+        .min(1, { message: "Prompt must be at least 1 character long." })
+        .max(3600, { message: "Prompt cannot exceed 3600 characters." })
+        .refine(value => !/^\s*$/.test(value), {
+            message: "Prompt must not be empty or consist only of whitespace characters."
+        })
+})
+
+export const EditChatNameSchema = z.object({
+    name: z.string().min(2, { message: "Minimum 2 Characters" }).max(20, { message: "Maximum 20 Characters" })
+})

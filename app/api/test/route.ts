@@ -1,7 +1,7 @@
+import { getSystemMessage } from "@/data";
+import { getUser } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 
-export const GET = (request:NextRequest) =>{
-    console.log("Razorpay Key ID:", process.env.RAZORPAY_KEY_ID);
-    console.log("Razorpay Key Secret:", process.env.RAZORPAY_KEY_SECRET);
-    return NextResponse.json({message: "Hello World"});
+export const GET =  (request:NextRequest) =>{
+    return NextResponse.json({Text:"Hello World"});
 }

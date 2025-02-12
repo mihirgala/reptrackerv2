@@ -1,5 +1,6 @@
 import { db } from "@/lib/db"
 import { razorpay } from "@/lib/razorpay"
+import { calculateMacros, calculateTDEE } from "@/lib/utils"
 import { startOfYear, endOfYear } from 'date-fns'
 
 export const getLoginCodeByEmail = async (email: string) => {
@@ -251,8 +252,8 @@ export const getWorkoutsByPersonalInfoId = async (personalInfoId: string) => {
             where: {
                 personalInfoId
             },
-            orderBy:{
-                createdAt:"asc"
+            orderBy: {
+                createdAt: "asc"
             }
         })
         return workouts
@@ -325,34 +326,34 @@ export const getWorkoutById = async (id: string) => {
     }
 }
 
-export const getLatestGeneratedWorkout = async (userId:string) => {
-    try{
-        if(!userId){
+export const getLatestGeneratedWorkout = async (userId: string) => {
+    try {
+        if (!userId) {
             throw new Error("Invalid request: userId is required")
         }
         const lastGeneratedWorkout = await db.lastGeneratedWorkout.findFirst({
-            where:{
+            where: {
                 userId
             }
         })
         return lastGeneratedWorkout
-    }catch(e){
+    } catch (e) {
         console.error(e)
     }
 }
 
-export const getLatestGeneratedMealPlan = async (userId:string) => {
-    try{
-        if(!userId){
+export const getLatestGeneratedMealPlan = async (userId: string) => {
+    try {
+        if (!userId) {
             throw new Error("Invalid request: userId is required")
         }
         const lastGeneratedMealPlan = await db.lastGeneratedMealPlan.findFirst({
-            where:{
+            where: {
                 userId
             }
         })
         return lastGeneratedMealPlan
-    }catch(e){
+    } catch (e) {
         console.error(e)
     }
 }
@@ -366,8 +367,8 @@ export const getMealPlanByPersonalInfoId = async (personalInfoId: string) => {
             where: {
                 personalInfoId
             },
-            orderBy:{
-                createdAt:"asc"
+            orderBy: {
+                createdAt: "asc"
             }
         })
         return mealPlan
@@ -387,6 +388,91 @@ export const getFoodsByMealId = async (mealId: string) => {
             }
         })
         return foods
+    } catch (e) {
+        console.error(e)
+    }
+}
+
+export const getChatbyId = async (id: string) => {
+    try {
+        if (!id) {
+            throw new Error("Invalid request: id is required")
+        }
+        const chat = await db.chat.findFirst({
+            where: {
+                id
+            }
+        })
+        return chat
+    } catch (e) {
+        console.error(e)
+    }
+}
+
+export const getMessagesByChatId = async (chatId: string) => {
+    try {
+        if (!chatId) {
+            throw new Error("Invalid request: chatId is required")
+        }
+        const messages = await db.message.findMany({
+            where: {
+                chatId
+            }
+        })
+        return messages
+    } catch (e) {
+        console.error(e)
+    }
+}
+
+export const getChatsByUserId = async (userId: string) => {
+    try {
+        if (!userId) {
+            throw new Error("Invalid request: userId is required")
+        }
+        const chats = await db.chat.findMany({
+            where: {
+                userId
+            }
+        })
+        return chats
+    } catch (e) {
+        console.error(e)
+    }
+}
+
+export const getSystemMessage = async (userId: string) => {
+    try {
+        if (!userId) {
+            throw new Error("Invalid request: userId is required")
+        }
+        const personalInfo = await getPersonalInfoByUserId(userId)
+        const dbworkouts = await getWorkoutsByPersonalInfoId(personalInfo?.id!)
+        // console.log(dbworkouts)
+        const workouts = await Promise.all(dbworkouts?.map(async (workout) => ({
+            id: workout.id,
+            name: workout.name,
+            exercises: await db.exercise.findMany({
+                where: { workoutId: workout.id },
+                select: {
+                    name: true,
+                    sets: true,
+                    reps: true,
+                    intensity: true,
+                    metric: true
+                }
+            })
+        })) ?? [])
+        const weight = await getLatestWeightByPersonalInfoId(personalInfo?.id!)
+        const tdee = calculateTDEE(personalInfo!, weight as number)
+        const macros = calculateMacros(tdee, personalInfo!.bodyCompositionGoal)
+        const systemMessage = `
+        user's workout plan: ${JSON.stringify(workouts)}
+        user's macros: ${JSON.stringify(macros)}
+        user's weight: ${weight} kgs
+        user's height: ${personalInfo?.height} centimeters
+        `
+        return systemMessage
     } catch (e) {
         console.error(e)
     }

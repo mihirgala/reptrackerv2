@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 import { SessionProvider } from "next-auth/react"
 import { auth } from "@/auth"
+import { Provider as JotaiProvider } from "jotai"
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -27,6 +28,7 @@ interface RootLayoutProps {
 const RootLayout = async ({ children }: RootLayoutProps) => {
   const session = await auth()
   return (
+    <JotaiProvider>
     <SessionProvider session={session}>
       <html lang="en">
         <body
@@ -46,6 +48,7 @@ const RootLayout = async ({ children }: RootLayoutProps) => {
         </body>
       </html>
     </SessionProvider>
+    </JotaiProvider>
   )
 }
 

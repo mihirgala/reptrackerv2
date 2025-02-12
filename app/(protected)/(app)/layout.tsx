@@ -13,7 +13,6 @@ const AppLayout = async ({ children }: AppLayoutProps) => {
     redirect("/onboarding")
   }
   return (
-    <>
       <div>
         <div className="my-2 mx-5">
           <NormalNavbar user={user} />
@@ -22,7 +21,6 @@ const AppLayout = async ({ children }: AppLayoutProps) => {
           {children}
         </div>
       </div>
-    </>
   )
 }
 export default AppLayout
