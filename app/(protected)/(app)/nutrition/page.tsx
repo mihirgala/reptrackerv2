@@ -40,7 +40,7 @@ const NutritionPage = async () => {
                                         <Button className="m-0 p-0 hover:bg-transparent" variant={"ghost"}><Info size={20} /></Button>
                                     </HoverCardTrigger>
                                     <HoverCardContent align="end" sideOffset={20}>
-                                        <span className="text-muted-foreground text-sm font-semibold">Get personalized meal plans tailored to your specific macronutrient goals and dietary preferences. Whether you're aiming to build muscle, lose weight, or maintain your current fitness level, our AI-powered system crafts meal plans that align with your nutritional needs. Simply input your desired macros and preferences, and let the AI do the rest, ensuring you get the right balance of proteins, fats, and carbohydrates for optimal health and fitness results.</span>
+                                        <span className="text-muted-foreground text-sm font-semibold">Get personalized meal plans tailored to your specific macronutrient goals and dietary preferences. Whether you&apos;re aiming to build muscle, lose weight, or maintain your current fitness level, our AI-powered system crafts meal plans that align with your nutritional needs. Simply input your desired macros and preferences, and let the AI do the rest, ensuring you get the right balance of proteins, fats, and carbohydrates for optimal health and fitness results.</span>
                                     </HoverCardContent>
                                 </HoverCard>
                             </div>
