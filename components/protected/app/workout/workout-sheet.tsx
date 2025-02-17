@@ -3,7 +3,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { getExercisesByWorkoutId } from "@/data"
 import { Workout } from "@prisma/client"
-import { Pencil1Icon, TrashIcon } from "@radix-ui/react-icons"
+import { Pencil1Icon } from "@radix-ui/react-icons"
 import { DeleteWorkoutButton } from "@/components/protected/app/workout/delete-workout-button"
 import Link from "next/link"
 
