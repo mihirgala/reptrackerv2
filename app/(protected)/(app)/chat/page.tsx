@@ -48,11 +48,13 @@ const ChatBotPage = async () => {
                 }
             })
             revalidatePath(`/chat`)
+            console.log(`/chat/${newChat.id}`)
             redirect(`/chat/${newChat.id}`)
         }
         else {
             revalidatePath(`/chat`)
-            redirect(`/chat/${chatId}`)
+            console.log(`/chat/${chatId.id}`)
+            redirect(`/chat/${chatId.id}`)
         }
 
     }
