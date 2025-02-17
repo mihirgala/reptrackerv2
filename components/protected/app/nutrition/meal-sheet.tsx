@@ -16,10 +16,10 @@ export const MealSheet = ({meal}:MealSheetProps) => {
                 <TableHeader>
                     <TableRow>
                         <TableHead>Food</TableHead>
-                        <TableHead>Protein</TableHead>
-                        <TableHead>Carbs</TableHead>
-                        <TableHead>Fats</TableHead>
-                        <TableHead>Calories</TableHead>
+                        <TableHead>P</TableHead>
+                        <TableHead>C</TableHead>
+                        <TableHead>F</TableHead>
+                        <TableHead>Cal</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>

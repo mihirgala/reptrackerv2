@@ -29,11 +29,9 @@ const ChatbotIdPage = async ({ params }: ChatbotIdPageProps) => {
     const chats = await getChatsByUserId(user?.id!)
     const convertDbMessages = convertMessage(dbMessages!)
     return (
-        <div>
-            <div className="md:w-[80%] md:mx-auto">
+            <div className="h-[calc(100vh-5rem)] md:w-[80%] md:mx-auto">
                 <ChatBotComponent chatId={chatId} user={user} chats={chats} isChatName={!!chat?.name} dbMessages={convertDbMessages!} />
             </div>
-        </div>
     )
 }
 

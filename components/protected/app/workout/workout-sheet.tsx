@@ -28,7 +28,6 @@ export const WorkoutSheet = async ({ workout, personalInfoId }: WorkoutSheetProp
                         <TableRow>
                             <TableHead>Exercise</TableHead>
                             <TableHead>Intensity</TableHead>
-                            <TableHead>Metric</TableHead>
                             <TableHead>Sets</TableHead>
                             <TableHead>Reps</TableHead>
                         </TableRow>
@@ -37,8 +36,8 @@ export const WorkoutSheet = async ({ workout, personalInfoId }: WorkoutSheetProp
                         {exercises.map((exercise) => (
                             <TableRow key={exercise.id}>
                                 <TableCell>{exercise.name}</TableCell>
-                                <TableCell>{exercise.intensity}</TableCell>
-                                <TableCell>{exercise.metric}</TableCell>
+                                <TableCell>{exercise.intensity}&nbsp;{exercise.metric}</TableCell>
+                                {/* <TableCell>{exercise.metric}</TableCell> */}
                                 <TableCell>{exercise.sets}</TableCell>
                                 <TableCell>{exercise.reps}</TableCell>
                             </TableRow>
