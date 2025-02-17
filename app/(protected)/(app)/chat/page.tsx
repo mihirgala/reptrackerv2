@@ -29,17 +29,32 @@ const ChatBotPage = async () => {
         )
     }
     if (user?.plan === "PREMIUM") {
-        const newChat = await db.chat.create({
-            data: {
-                user: {
-                    connect: {
-                        id: user.id
-                    }
-                }
+        const chatId = await db.chat.findFirst({
+            where: {
+                userId: user.id
+            },
+            select: {
+                id: true
             }
         })
-        revalidatePath(`/chat`)
-        redirect(`/chat/${newChat.id}`)
+        if (!chatId) {
+            const newChat = await db.chat.create({
+                data: {
+                    user: {
+                        connect: {
+                            id: user.id
+                        }
+                    }
+                }
+            })
+            revalidatePath(`/chat`)
+            redirect(`/chat/${newChat.id}`)
+        }
+        else {
+            revalidatePath(`/chat`)
+            redirect(`/chat/${chatId}`)
+        }
+
     }
 }
 
