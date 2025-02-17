@@ -4,7 +4,7 @@ import * as z from "zod"
 import { generateMealPlanSchema } from "@/schemas"
 import { auth } from "@/auth"
 import { db } from "@/lib/db"
-import { getLatestGeneratedMealPlan, getLatestGeneratedWorkout } from "@/data"
+import { getLatestGeneratedMealPlan } from "@/data"
 import { JSONmodel } from "@/lib/google-generative-ai"
 
 export const generateMealPlan = async (values: z.infer<typeof generateMealPlanSchema>,
@@ -144,7 +144,7 @@ export const generateMealPlan = async (values: z.infer<typeof generateMealPlanSc
     const result = await JSONmodel.generateContent(prompt)
     const content = result?.response.text()
     if (!content) {
-      await db.lastGeneratedWorkout.delete({
+      await db.lastGeneratedMealPlan.delete({
         where: {
           id: lastGeneratedMealPlanId
         }
