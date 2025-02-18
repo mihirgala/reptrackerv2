@@ -19,13 +19,13 @@ export const generateMealPlan = async (values: z.infer<typeof generateMealPlanSc
     }
 
     const lastGeneratedMealPlan = await getLatestGeneratedMealPlan(session?.user.id as string)
-    const expiresAt = new Date(Date.now() + (1000 * 60 * 3600))
+    const expiresAt = new Date(Date.now() + (1000 * 60 * 60))
 
     if (lastGeneratedMealPlan && new Date(lastGeneratedMealPlan.expiresAt) > new Date()) {
       const now = new Date()
       const expiresAtTime = new Date(lastGeneratedMealPlan.expiresAt).getTime()
       const diff = expiresAtTime - now.getTime()
-      const oneHour = 1000 * 60 * 3600
+      const oneHour = 1000 * 60 * 60
 
       if (diff > 0 && diff < oneHour) {
         const timeRemaining = diff

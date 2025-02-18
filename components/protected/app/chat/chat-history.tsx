@@ -8,12 +8,13 @@ import { User } from 'next-auth'
 import { usePathname, useRouter } from 'next/navigation'
 import React, { startTransition, useEffect, useTransition } from 'react'
 import { ChatButton } from './chat-button'
+import { ScrollArea } from '@/components/ui/scroll-area'
 
 interface ChatHistoryProps {
     user?: User
     chats?: Chat[]
 }
-export const ChatHistory = ({user,chats}:ChatHistoryProps) => {
+export const ChatHistory = ({ user, chats }: ChatHistoryProps) => {
     const { toast } = useToast()
     const [isPending, setIsPending] = useTransition()
     const [chatsState, setChatsState] = useAtom(chatsStateAtom)
@@ -21,8 +22,8 @@ export const ChatHistory = ({user,chats}:ChatHistoryProps) => {
     const router = useRouter()
 
     useEffect(() => {
-        if(chats) setChatsState(chats)
-            console.log(chats)
+        if (chats) setChatsState(chats)
+        console.log(chats)
     }, [])
 
     const handleDelete = (chatId: string) => {
@@ -79,11 +80,13 @@ export const ChatHistory = ({user,chats}:ChatHistoryProps) => {
         })
 
     }
-  return (
-    <div className='w-full'>
-    {chatsState.map((chat, index) => (
-        <ChatButton key={index} isPending={isPending} chat={chat} handleNameChange={handleNameChange} handleDelete={handleDelete} />
-    ))}
-</div>
-  )
+    return (
+        <ScrollArea className="h-[35vh] w-full rounded-md border px-1">
+            <div className='w-full'>
+                {chatsState.map((chat, index) => (
+                    <ChatButton key={index} isPending={isPending} chat={chat} handleNameChange={handleNameChange} handleDelete={handleDelete} />
+                ))}
+            </div>
+        </ScrollArea>
+    )
 }
