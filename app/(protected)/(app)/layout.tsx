@@ -1,4 +1,3 @@
-import { BottomNav } from "@/components/normal/bottom-navbar"
 import { NormalNavbar } from "@/components/normal/navbar"
 import { getPersonalInfoIdByUserId } from "@/data"
 import { getUser } from "@/lib/auth"
