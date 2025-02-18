@@ -43,19 +43,7 @@ export const UserButton = ({ user }: UserButtonProps) => {
                     <Link href={"/chat"} className="flex gap-x-2" ><MdChatBubble size={25} />Chatbot</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                    <Link href={"/dashboard"} className="flex gap-x-2" ><DashboardIcon height={25} width={25} />Dashboard</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                    <Link href={"/nutrition"} className="flex gap-x-2" ><UtensilsCrossed size={25} />Nutrition</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                    <Link href={"/workout"} className="flex gap-x-2" ><DumbbellIcon size={25} />Workout</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
                     <Link href={"/settings"} className="flex gap-x-2" ><MdOutlineSettings size={25} />Settings</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                    <Link href={"/pricing"} className="flex gap-x-2" ><TbHelp size={25} />Pricing</Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild><SignOutButton /></DropdownMenuItem>
