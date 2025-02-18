@@ -7,12 +7,18 @@ import { getPersonalInfoByUserId, getSubscriptionByUserId } from "@/data"
 import { getUser } from "@/lib/auth"
 import { cn } from "@/lib/utils"
 import { CreditCard, User2, WeightIcon } from "lucide-react"
+import { Metadata } from "next"
 import { Montserrat } from "next/font/google"
 
 const fontMontserrat = Montserrat({
     subsets: ["latin"],
     weight: ["700"]
   })
+
+  export const metadata: Metadata = {
+    title: `Settings – Customize Your Fitness Experience`,
+    description:`Personalize your Reptracker account with settings tailored to your fitness journey. Adjust workout preferences, set nutrition goals, manage AI chat settings, and more to optimize your fitness tracking experience.`
+  }
 
 const SettingsPage = async () => {
     const user = await getUser()

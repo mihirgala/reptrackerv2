@@ -18,11 +18,16 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { WorkoutPresetList } from "@/components/protected/app/workout/preset"
+import { Metadata } from "next"
 
 const fontMontserrat = Montserrat({
   subsets: ["latin"],
   weight: ["700"]
 })
+
+export const metadata: Metadata = {
+  title: `Workouts`,
+}
 
 
 const WorkoutPage = async () => {

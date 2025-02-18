@@ -477,3 +477,25 @@ export const getSystemMessage = async (userId: string) => {
         console.error(e)
     }
 }
+
+export const getChatNameById = async (id:string) =>{
+    try {
+        if (!id) {
+            throw new Error("Invalid request: chatId is required")
+        }
+        const chat = await db.chat.findFirst({
+            where: {
+                id
+            },
+            select:{
+                name:true
+            }
+        })
+        if(!chat){
+            return ""
+        }
+        return chat.name
+    } catch (e) {
+        console.error(e)
+    }
+}

@@ -1,5 +1,5 @@
 import { ChatBotComponent } from '@/components/protected/app/chat/chatbot'
-import { getChatbyId, getChatsByUserId, getMessagesByChatId, getSystemMessage } from '@/data'
+import { getChatbyId, getChatNameById, getChatsByUserId, getMessagesByChatId, getSystemMessage } from '@/data'
 import { getUser } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 import React from 'react'
@@ -9,6 +9,13 @@ interface ChatbotIdPageProps {
     params: {
         id: string
     }
+}
+
+export async function generateMetadata({ params }: ChatbotIdPageProps) {
+  const chatName = await getChatNameById(params.id)
+  return {
+    title: `${chatName || "untitled chat"}`
+  }
 }
 
 function convertMessage(messages: { role: "user" | "model" | string; content: string }[]){

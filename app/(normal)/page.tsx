@@ -6,11 +6,17 @@ import Image from "next/image"
 import Link from "next/link"
 import hero from "@/assets/hero.svg"
 import { Features } from "@/components/normal/features"
+import { Metadata } from 'next'
 
 const fontMontserrat = Montserrat({
   subsets: ["latin"],
   weight: ["400", "700"]
 })
+
+ 
+export const metadata: Metadata = {
+  title: `AI-Powered Fitness & Workout Tracking`,
+}
 
 const HomePage = async () => {
   const user = await getUser()

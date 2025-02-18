@@ -24,10 +24,15 @@ const fontMontserrat = Montserrat({
   weight: ["700"]
 })
 
+export async function generateMetadata({ params }:SplitPreviewPageProps) {
+  const split = splits.find((split) => split.slug === params.split)
+  return {
+    title: `${split?.name}`,
+  }
+}
+
 const SplitPreviewPage = async ({ params }: SplitPreviewPageProps) => {
   const split = splits.find((split) => split.slug === params.split)
-  console.log(split)
-  console.log(params.split)
   const workouts = split?.workouts
   if (!split) {
     redirect("/workout/")

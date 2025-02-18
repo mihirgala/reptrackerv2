@@ -1,6 +1,5 @@
 "use client"
-
-import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts"
+import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
 import {
   Card,
   CardContent,
@@ -14,11 +13,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { useEffect, useState, useTransition } from "react"
-import { MonthlyAvgWeight } from "@/actions/protected/app/weightavg"
-import { useRouter } from "next/navigation"
-import { Skeleton } from "@/components/ui/skeleton"
-import { ClimbingBoxLoader, FadeLoader, MoonLoader } from "react-spinners"
 import { HoverCard } from "@radix-ui/react-hover-card"
 import { HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
 import { Info } from "lucide-react"
@@ -59,20 +53,21 @@ export const WeightChart = ({ chartData }: WeightChartProps) => {
           </HoverCard>
         </div>
         <CardDescription>
-        {chartData.length > 0 ? 
-          <>
+          {chartData.length > 0 ? (
+            <>
+              <span className="text-sm text-muted-foreground">
+                Showing the average weight per month.
+              </span>
+              <br />
+              <span className="text-sm text-muted-foreground">
+                Last updated {chartData[chartData.length - 1].month}
+              </span>
+            </>
+          ) : (
             <p className="text-sm text-muted-foreground">
-              Showing the average weight per month
+              No data available, update your weight in settings.
             </p>
-            <p className="text-sm text-muted-foreground">
-              Last updated {chartData[chartData.length - 1].month}
-            </p>
-          </>
-          :
-          <p className="text-sm text-muted-foreground">
-            No data available, update your weight in settings
-          </p>
-        }
+          )}
         </CardDescription>
       </CardHeader>
       <CardContent>

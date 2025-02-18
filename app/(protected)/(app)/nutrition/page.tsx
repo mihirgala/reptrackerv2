@@ -11,6 +11,7 @@ import { getMealPlanByPersonalInfoId, getPersonalInfoByUserId } from "@/data"
 import { getUser } from "@/lib/auth"
 import { calculateMacros, calculateTDEE, cn } from "@/lib/utils"
 import { Info } from "lucide-react"
+import { Metadata } from "next"
 import { Montserrat } from "next/font/google"
 import Link from "next/link"
 
@@ -18,6 +19,10 @@ const fontMontserrat = Montserrat({
     subsets: ["latin"],
     weight: ["700"]
 })
+
+export const metadata: Metadata = {
+    title: `Nutrition`,
+  }
 
 const NutritionPage = async () => {
     const user = await getUser()

@@ -1,9 +1,14 @@
 import { NormalNavbar } from "@/components/normal/navbar"
 import { getUser } from "@/lib/auth"
+import { Metadata } from "next"
 import Script from "next/script"
 
 interface PaymentLayoutProps {
   children: React.ReactNode
+}
+
+export const metadata: Metadata = {
+  title: `Subscribe`,
 }
 const PaymentLayout = async ({ children }: PaymentLayoutProps) => {
   const user = await getUser()

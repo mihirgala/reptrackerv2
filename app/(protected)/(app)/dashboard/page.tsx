@@ -4,12 +4,17 @@ import { WeightChart } from "@/components/protected/app/dashboard/weight-chart"
 import { getMonthlyAvgWeightByPersonalInfoId, getPersonalInfoByUserId } from "@/data"
 import { getUser } from "@/lib/auth"
 import { cn } from "@/lib/utils"
+import { Metadata } from "next"
 import { Montserrat } from "next/font/google"
 
 const fontMontserrat = Montserrat({
   subsets: ["latin"],
   weight: ["700"]
 })
+
+export const metadata: Metadata = {
+  title: `Dashboard`,
+}
 
 const DashboardPage = async () => {
 
