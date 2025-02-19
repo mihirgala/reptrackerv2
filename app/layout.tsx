@@ -8,6 +8,7 @@ import { SessionProvider } from "next-auth/react"
 import { auth } from "@/auth"
 import { Provider as JotaiProvider } from "jotai"
 import { siteConfig } from "@/config/site"
+// import { GoogleAnalytics } from '@next/third-parties/google'
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -85,7 +86,7 @@ const RootLayout = async ({ children }: RootLayoutProps) => {
   return (
     <JotaiProvider>
     <SessionProvider session={session}>
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body
           className={cn(
             "font-sans antialiased pb-5",
@@ -101,6 +102,7 @@ const RootLayout = async ({ children }: RootLayoutProps) => {
             <Toaster />
           </ThemeProvider>
         </body>
+        {/* <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS as string} /> */}
       </html>
     </SessionProvider>
     </JotaiProvider>
