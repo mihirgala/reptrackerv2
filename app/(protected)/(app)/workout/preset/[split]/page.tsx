@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils"
 import { Montserrat } from "next/font/google"
 
 interface SplitPreviewPageProps {
-  params: Promise<{ split: string }>{ split: string }
+  params: Promise<{ split: string }>
 }
 
 const fontMontserrat = Montserrat({
