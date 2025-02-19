@@ -47,12 +47,12 @@ const ChatBotPage = async () => {
                     }
                 }
             })
-            revalidatePath(`/chat`)
+            // revalidatePath(`/chat`)
             // console.log(`/chat/${newChat.id}`)
             redirect(`/chat/${newChat.id}`)
         }
         else {
-            revalidatePath(`/chat`)
+            // revalidatePath(`/chat`)
             // console.log(`/chat/${chatId.id}`)
             redirect(`/chat/${chatId.id}`)
         }
