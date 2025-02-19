@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils"
 import { Montserrat } from "next/font/google"
 
 interface SplitPreviewPageProps {
-  params: { split: string }
+  params: Promise<{ split: string }>{ split: string }
 }
 
 const fontMontserrat = Montserrat({
@@ -25,14 +25,16 @@ const fontMontserrat = Montserrat({
 })
 
 export async function generateMetadata({ params }:SplitPreviewPageProps) {
-  const split = splits.find((split) => split.slug === params.split)
+  const splitSlug = (await params).split
+  const split = splits.find((split) => split.slug === splitSlug)
   return {
     title: `${split?.name}`,
   }
 }
 
 const SplitPreviewPage = async ({ params }: SplitPreviewPageProps) => {
-  const split = splits.find((split) => split.slug === params.split)
+  const splitSlug = (await params).split
+  const split = splits.find((split) => split.slug === splitSlug)
   const workouts = split?.workouts
   if (!split) {
     redirect("/workout/")

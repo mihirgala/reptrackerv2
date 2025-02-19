@@ -6,13 +6,11 @@ import React from 'react'
 
 
 interface ChatbotIdPageProps {
-    params: {
-        id: string
-    }
+    params: Promise<{ id: string }>
 }
 
 export async function generateMetadata({ params }: ChatbotIdPageProps) {
-  const chatName = await getChatNameById(params.id)
+  const chatName = await getChatNameById((await params).id)
   return {
     title: `${chatName || "untitled chat"}`
   }
@@ -29,7 +27,7 @@ function convertMessage(messages: { role: "user" | "model" | string; content: st
 
 const ChatbotIdPage = async ({ params }: ChatbotIdPageProps) => {
     const user = await getUser()
-    const chatId = params.id
+    const chatId = (await params).id
     const chat = await getChatbyId(chatId)
     if (!chat || user?.id !== chat.userId) return redirect("/dashboard")
     const dbMessages = await getMessagesByChatId(chatId)
