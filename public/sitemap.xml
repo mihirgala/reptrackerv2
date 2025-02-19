@@ -5,6 +5,11 @@
         <lastmod>2024-02-19</lastmod>
         <priority>1.0</priority>
     </url>
+        <url>
+        <loc>https://reptracker.vercel.app/auth/login</loc>
+        <lastmod>2024-02-19</lastmod>
+        <priority>1.0</priority>
+    </url>
     <url>
         <loc>https://reptracker.vercel.app/#features</loc>
         <lastmod>2024-02-19</lastmod>
