@@ -11,15 +11,13 @@ const fontMontserrat = Montserrat({
 })
 
 interface CreateWorkoutPageProps {
-  params: {
-    workoutId: string
-  }
+  params:Promise<{workoutId: string}>
 }
 
 const CreateWorkoutPage = async ({ params }: CreateWorkoutPageProps) => {
   const user = await getUser()
   const personalInfoId = await getPersonalInfoIdByUserId(user?.id!)
-  const workout = await getWorkoutById(params.workoutId)
+  const workout = await getWorkoutById((await params).workoutId)
   if(!workout){
     return redirect("/workout")
   }
