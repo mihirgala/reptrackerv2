@@ -10,7 +10,7 @@ export const Footer = () => {
 
       {/* Logo & About */}
       <div className="flex flex-col">
-        <div className="self-start">
+        <div className="self-center md:self-start">
         <SiteLogo/>
         </div>
         <p className="text-gray-400 mt-2 text-sm">
