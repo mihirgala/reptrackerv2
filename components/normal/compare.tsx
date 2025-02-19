@@ -61,11 +61,6 @@ export const ComparisionComponent = () => {
                             <TableHead rowSpan={5}>AI Features</TableHead>
                         </TableRow>
                         <TableRow>
-                            <TableHead>Avaliable</TableHead>
-                            <TableCell><Cross1Icon color="red" /></TableCell>
-                            <TableCell><CheckIcon color="green" /></TableCell>
-                        </TableRow>
-                        <TableRow>
                             <TableHead>Chat with AI</TableHead>
                             <TableCell><Cross1Icon color="red" /></TableCell>
                             <TableCell><CheckIcon color="green" /></TableCell>

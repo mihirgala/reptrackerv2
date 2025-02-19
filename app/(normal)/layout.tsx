@@ -1,3 +1,4 @@
+import { Footer } from "@/components/normal/footer"
 import { NormalNavbar } from "@/components/normal/navbar"
 import { getUser } from "@/lib/auth"
 
@@ -14,6 +15,7 @@ const NormalLayout = async ({children}:NormalLayoutProps) => {
       <div className="mx-5">
         {children}
       </div>
+      <Footer/>
     </div>
   )
 }
