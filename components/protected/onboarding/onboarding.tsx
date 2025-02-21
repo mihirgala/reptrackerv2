@@ -20,9 +20,7 @@ import { Input } from "@/components/ui/input"
 import {
     Select,
     SelectContent,
-    SelectGroup,
     SelectItem,
-    SelectLabel,
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
@@ -263,16 +261,12 @@ export const OnboardingComponent = ({ user }: OnboardingComponentProps) => {
                                 </Card>
                             </CarouselItem>
                         </CarouselContent>
-                        <div className="hidden md:block">
-                            <CarouselPrevious />
-                            <CarouselNext />
-                        </div>
                     </Carousel>
                 </form>
             </Form>
             <div className="py-2 text-center text-sm text-muted-foreground">
                 Part {current} of {count}
-                <p className="md:hidden text-sm font-semibold text-muted-foreground">Slide left or right to scroll</p>
+                <p className="text-sm font-semibold text-muted-foreground">Slide left or right to scroll</p>
             </div>
         </div>
     )
