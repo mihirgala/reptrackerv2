@@ -102,7 +102,7 @@ const RootLayout = async ({ children }: RootLayoutProps) => {
             <Toaster />
           </ThemeProvider>
         </body>
-        {/* <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS as string} /> */}
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS as string} />
       </html>
     </SessionProvider>
     </JotaiProvider>
