@@ -8,7 +8,7 @@ import { SessionProvider } from "next-auth/react"
 import { auth } from "@/auth"
 import { Provider as JotaiProvider } from "jotai"
 import { siteConfig } from "@/config/site"
-// import { GoogleAnalytics } from '@next/third-parties/google'
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const fontSans = FontSans({
   subsets: ["latin"],
