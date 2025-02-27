@@ -499,3 +499,12 @@ export const getChatNameById = async (id:string) =>{
         console.error(e)
     }
 }
+
+export const getTotalUserCount = async () => {
+    try {
+        const count = await db.user.count()
+        return count
+    } catch (e) {
+        console.error(e)
+    }
+}

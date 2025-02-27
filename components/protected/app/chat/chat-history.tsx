@@ -9,6 +9,10 @@ import { usePathname, useRouter } from 'next/navigation'
 import React, { startTransition, useEffect, useTransition } from 'react'
 import { ChatButton } from './chat-button'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { DashboardIcon } from '@radix-ui/react-icons'
+import { DumbbellIcon, UtensilsCrossed } from 'lucide-react'
+import Link from 'next/link'
+import { cn } from '@/lib/utils'
 
 interface ChatHistoryProps {
     user?: User
@@ -20,6 +24,11 @@ export const ChatHistory = ({ user, chats }: ChatHistoryProps) => {
     const [chatsState, setChatsState] = useAtom(chatsStateAtom)
     const pathname = usePathname()
     const router = useRouter()
+    const navItems = [
+        { name: "Dashboard", icon: DashboardIcon, href: "/dashboard" },
+        { name: "Workouts", icon: DumbbellIcon, href: "/workout" },
+        { name: "Nutrition", icon: UtensilsCrossed, href: "/nutrition" },
+    ]
 
     useEffect(() => {
         if (chats) setChatsState(chats)
@@ -81,12 +90,31 @@ export const ChatHistory = ({ user, chats }: ChatHistoryProps) => {
 
     }
     return (
-        <ScrollArea className="h-[35vh] w-full rounded-md border px-1">
-            <div className='w-full'>
-                {chatsState.map((chat, index) => (
-                    <ChatButton key={index} isPending={isPending} chat={chat} handleNameChange={handleNameChange} handleDelete={handleDelete} />
-                ))}
-            </div>
-        </ScrollArea>
+        <>
+            <ScrollArea className="h-[35vh] w-full rounded-md border px-1">
+                <div className='w-full'>
+                    {chatsState.map((chat, index) => (
+                        <ChatButton key={index} isPending={isPending} chat={chat} handleNameChange={handleNameChange} handleDelete={handleDelete} />
+                    ))}
+                </div>
+            </ScrollArea>
+            <nav className="bg-background border-t border-border">
+                <div className="grid h-16 grid-cols-3 max-w-md mx-auto">
+                    {navItems.map((item) => (
+                        <Link
+                            key={item.name}
+                            href={item.href}
+                            className={cn(
+                                "flex flex-col items-center justify-center",
+                                "text-muted-foreground",
+                            )}
+                        >
+                            <item.icon className="h-5 w-5" />
+                            <span className="text-xs">{item.name}</span>
+                        </Link>
+                    ))}
+                </div>
+            </nav>
+        </>
     )
 }

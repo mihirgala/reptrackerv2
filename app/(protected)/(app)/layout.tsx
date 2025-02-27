@@ -10,7 +10,7 @@ const AppLayout = async ({ children }: AppLayoutProps) => {
   const user = await getUser()
   const personalInfoId = await getPersonalInfoIdByUserId(user?.id!)
   if(!personalInfoId){
-    redirect("/onboarding")
+    return redirect("/onboarding")
   }
   return (
       <div>

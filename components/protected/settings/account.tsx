@@ -31,6 +31,10 @@ export const SettingsAccount = ({ user }: SettingsAccountProps) => {
                             <TableCell><ChangeNameButton user={user} /></TableCell>
                         </TableRow>
                         <TableRow>
+                            <TableHead>Role</TableHead>
+                            <TableCell colSpan={2}>{user.role || "USER"}</TableCell>
+                        </TableRow>
+                        <TableRow>
                             <TableHead>Plan</TableHead>
                             <TableCell colSpan={2}><Badge variant={user.plan === "PREMIUM" ? "default" : "secondary"}>
                                 {user.plan}

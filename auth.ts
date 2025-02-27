@@ -46,6 +46,7 @@ export const {
             if (session.user) {
                 session.user.name = token.name
                 session.user.email = token.email
+                session.user.role = token.role
                 session.user.plan = token.plan
                 session.user.currentEnd = token.currentEnd
             }
@@ -77,6 +78,7 @@ export const {
 
             token.name = exisitingUser.name
             token.email = exisitingUser.email
+            token.role = exisitingUser.role
             return token
         }
     },

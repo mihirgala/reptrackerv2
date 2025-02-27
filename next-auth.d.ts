@@ -1,9 +1,11 @@
+import { Roles } from "@prisma/client";
 import NextAuth, { type DefaultSession } from "next-auth";
 
 export type ExtendedUser = DefaultSession["user"] & {
     plan: "FREE" | "PREMIUM"
     currentEnd: Date
     weight: number
+    role: Roles
 }
 
 declare module "next-auth" {

@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { getPaymentByReferenceId } from "@/data"
 import Link from "next/link"
 import { redirect } from "next/navigation"
-import {use} from "react"
 
 interface SubscriptionSuceessPageProps {
     searchParams: Promise<{ [key: string]: string | string | string[] | undefined }>
@@ -13,7 +12,7 @@ interface SubscriptionSuceessPageProps {
 const SubscriptionSuceessPage = async ({
     searchParams
 }: SubscriptionSuceessPageProps) => {
-    const referenceId = use(searchParams).reference_id
+    const referenceId = (await searchParams).reference_id
     if (!referenceId) {
         const Errtype = "Invalid Request"
         redirect(`/subscribe/failure?type=${Errtype}`)

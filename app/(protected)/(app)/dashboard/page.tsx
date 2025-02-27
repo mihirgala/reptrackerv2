@@ -20,6 +20,7 @@ const DashboardPage = async () => {
 
   const user = await getUser()
   const personalInfo = await getPersonalInfoByUserId(user?.id!)
+  if(!personalInfo) return null
   const chartData = await getMonthlyAvgWeightByPersonalInfoId(personalInfo?.id!)
 
   return (
