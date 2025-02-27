@@ -24,7 +24,7 @@ const ContactPage = () => {
         <Section title="Email Support">
           <p className="text-lg font-medium">📧 reptrackerfit@gmail.com</p>
           <p>
-            Please provide a clear subject line for your email so we can assist you efficiently. Whether it's a technical issue, 
+            Please provide a clear subject line for your email so we can assist you efficiently. Whether it&apos;s a technical issue, 
             a billing question, or general feedback, we&apos;re here to help.
           </p>
         </Section>
