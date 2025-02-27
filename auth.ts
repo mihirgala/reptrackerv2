@@ -4,6 +4,7 @@ import { getAccountByUserId, getLatestWeightByPersonalInfoId, getPersonalInfoByU
 import authConfig from "@/auth.config"
 import { db } from "@/lib/db"
 import { sendVerificationSuccessEmail } from "@/lib/mail"
+import { razorpay } from "./lib/razorpay"
 
 export const {
     handlers: { GET, POST },
@@ -39,10 +40,10 @@ export const {
                 session.user.id = token.sub
             }
 
-            if(token.weight && session.user){
+            if (token.weight && session.user) {
                 session.user.weight = token.weight
             }
-            
+
             if (session.user) {
                 session.user.name = token.name
                 session.user.email = token.email
@@ -60,7 +61,7 @@ export const {
             if (!exisitingUser) return token
 
             const personalInfoId = await getPersonalInfoByUserId(exisitingUser.id)
-            if(personalInfoId){
+            if (personalInfoId) {
                 token.weight = await getLatestWeightByPersonalInfoId(personalInfoId.id)
             }
 
@@ -68,6 +69,30 @@ export const {
                 const subscriptionEndDate = new Date(exisitingUser.subscriptionCurrendCycleEnd)
                 const currentDate = new Date()
                 const userPlan = subscriptionEndDate >= currentDate ? "PREMIUM" : "FREE";
+                if (userPlan === "FREE") {
+                    try {
+                        if (exisitingUser.subscriptionId) {
+                            // const subscription = await razorpay.subscriptions.fetch(exisitingUser.subscriptionId)
+                            // if (subscription.status === "halted") {
+                                await razorpay.subscriptions.cancel(exisitingUser.subscriptionId, false)
+                                await db.user.update({
+                                    where: {
+                                        id: exisitingUser.id
+                                    },
+                                    data: {
+                                        subscriptionId: null,
+                                    }
+                                })
+                            }
+                        // }
+                        await db.user.update({
+                            where: { id: exisitingUser.id },
+                            data: { subscriptionCurrendCycleEnd: null }
+                        })
+                    } catch (e) {
+                        console.log(e)
+                    }
+                }
                 token.plan = userPlan
                 token.currentEnd = exisitingUser.subscriptionCurrendCycleEnd
             }

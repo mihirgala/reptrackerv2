@@ -64,44 +64,44 @@ export const WeightChart = ({ chartData }: WeightChartProps) => {
               </span>
             </>
           ) : (
-            <p className="text-sm text-muted-foreground">
+            <span className="text-sm text-muted-foreground">
               No data available, update your weight in settings.
-            </p>
+            </span>
           )}
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
-          <AreaChart
-            accessibilityLayer={false}
-            data={chartData}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
+          <ChartContainer config={chartConfig}>
+            <AreaChart
+              accessibilityLayer={false}
+              data={chartData}
+              margin={{
+                left: 12,
+                right: 12,
+              }}
+            >
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="month"
+                tickLine={false}
+                axisLine={false}
+                tickMargin={8}
+                tickFormatter={(value) => value.slice(0, 3)}
+              />
 
-            <ChartTooltip
-              cursor={true}
-              content={<ChartTooltipContent indicator="dot" />}
-            />
-            <Area
-              dataKey="weight"
-              type="linear"
-              fill="var(--color-weight)"
-              fillOpacity={0.4}
-              stroke="var(--color-weight)"
-            />
-          </AreaChart>
-        </ChartContainer>
+              <ChartTooltip
+                cursor={true}
+                content={<ChartTooltipContent indicator="dot" />}
+              />
+              <Area
+                dataKey="weight"
+                type="linear"
+                fill="var(--color-weight)"
+                fillOpacity={0.4}
+                stroke="var(--color-weight)"
+              />
+            </AreaChart>
+          </ChartContainer>
       </CardContent>
     </Card>
   )

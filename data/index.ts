@@ -475,10 +475,11 @@ export const getSystemMessage = async (userId: string) => {
         return systemMessage
     } catch (e) {
         console.error(e)
+        return null
     }
 }
 
-export const getChatNameById = async (id:string) =>{
+export const getChatNameById = async (id: string) => {
     try {
         if (!id) {
             throw new Error("Invalid request: chatId is required")
@@ -487,16 +488,17 @@ export const getChatNameById = async (id:string) =>{
             where: {
                 id
             },
-            select:{
-                name:true
+            select: {
+                name: true
             }
         })
-        if(!chat){
+        if (!chat) {
             return ""
         }
         return chat.name
     } catch (e) {
         console.error(e)
+        return null
     }
 }
 
@@ -506,5 +508,97 @@ export const getTotalUserCount = async () => {
         return count
     } catch (e) {
         console.error(e)
+        return null
+    }
+}
+
+export const getUsersByQuery = async (query?: string) => {
+    if (!query || query.length === 0) {
+        return await db.user.findMany({ take: 5 })
+    }
+    try {
+        const users = await db.user.findMany({
+            where: {
+                OR: [
+                    { email: { contains: query, mode: "insensitive" } }, // Case-insensitive search in email
+                    { name: { contains: query, mode: "insensitive" } }, // Case-insensitive search in name
+                ],
+            },
+            take: 10, // Limit to 10 results
+        })
+        return users
+    } catch (e) {
+        console.log(e)
+        return null
+    }
+}
+
+export const getTotalPremiumUserCount = async () => {
+    try {
+        const count = await db.user.count({
+            where:{
+                subscriptionCurrendCycleEnd:{
+                    gte: new Date()
+                }
+            }   
+        })
+        return count
+    } catch (e) {
+        console.error(e)
+        return null
+    }
+}
+
+export const getTotalWorkoutCount = async () => {
+    try{
+        const count = await db.workout.count()
+        return count
+    }catch(e){
+        console.log(e)
+    }
+}
+
+export const getTotalExcerciseCount = async () => {
+    try{
+        const count = await db.exercise.count()
+        return count
+    }catch(e){
+        console.log(e)
+    }
+}
+
+export const getTotalMealCount = async () => {
+    try{
+        const count = await db.meal.count()
+        return count
+    }catch(e){
+        console.log(e)
+    }
+}
+
+export const getTotalFoodCount = async () => {
+    try{
+        const count = await db.food.count()
+        return count
+    }catch(e){
+        console.log(e)
+    }
+}
+
+export const getTotalChatCount = async () => {
+    try{
+        const count = await db.chat.count()
+        return count
+    }catch(e){
+        console.log(e)
+    }
+}
+
+export const getTotalMessageCount = async () => {
+    try{
+        const count = await db.message.count()
+        return count
+    }catch(e){
+        console.log(e)
     }
 }
