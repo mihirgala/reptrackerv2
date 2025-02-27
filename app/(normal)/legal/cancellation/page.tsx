@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 const CancellationRefundPolicy = () => {
   return (
-    <div className="md:max-w-[70%] min-h-[calc(100vh-11rem)] flex justify-center flex-col mx-auto text-justify">
+    <div className="md:max-w-[70%] min-h-[calc(100vh-11rem)] flex flex-col mx-auto text-justify">
       <h1 className="text-3xl font-bold text-center mb-4">Reptracker - Cancellation & Refund Policy</h1>
       
       <p className="mb-4">
