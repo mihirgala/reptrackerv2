@@ -2,7 +2,8 @@ import { Button } from "@/components/ui/button"
 import { getPersonalInfoIdByUserId, getWorkoutsByPersonalInfoId } from "@/data"
 import { getUser } from "@/lib/auth"
 import { cn } from "@/lib/utils"
-import { List, Plus } from "lucide-react"
+import { Plus } from "lucide-react"
+import { FaDumbbell } from "react-icons/fa";
 import { Badge } from "@/components/ui/badge"
 import { Montserrat } from "next/font/google"
 import Link from "next/link"
@@ -56,7 +57,7 @@ const WorkoutPage = async () => {
           </Button>
           <Dialog>
       <DialogTrigger asChild>
-      <Button aria-label="View Presets" className="p-0 m-0 aspect-square" variant={"outline"}><List size={20} /></Button>
+      <Button aria-label="View Presets" className="p-0 m-0 aspect-square" variant={"outline"}><FaDumbbell size={20} /></Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>

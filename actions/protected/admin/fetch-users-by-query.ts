@@ -2,6 +2,6 @@
 
 import { getUsersByQuery } from "@/data"
 
-export const fetchUsersByQuery = async (query: string) => {
-    return await getUsersByQuery(query)
+export const fetchUsersByQuery = async (query: string,page:number,onlyPremium:boolean) => {
+    return await getUsersByQuery(query,page,onlyPremium)
 }

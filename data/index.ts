@@ -512,20 +512,58 @@ export const getTotalUserCount = async () => {
     }
 }
 
-export const getUsersByQuery = async (query?: string) => {
-    if (!query || query.length === 0) {
-        return await db.user.findMany({ take: 5 })
+export const getUsersByQuery = async (query?: string, page: number = 1, onlyPremium: boolean = false) => {
+    const take = 5; // Number of users per page
+    const skip = (page - 1) * take; // Offset for pagination
+
+    if (onlyPremium) {
+
+        try {
+            if (!query || query.length === 0) {
+                return await db.user.findMany({
+                    where: {
+                        subscriptionCurrendCycleEnd: {
+                            gte: new Date()
+                        }
+                    }, take, skip
+                })
+            }
+            const users = await db.user.findMany({
+                where: {
+                    OR: [
+                        { email: { contains: query, mode: "insensitive" } },
+                        { name: { contains: query, mode: "insensitive" } },
+                    ],
+                    subscriptionCurrendCycleEnd: {
+                        gte: new Date()
+                    }
+                },
+                take,
+                skip,
+            })
+            return users
+        } catch (e) {
+            console.log(e)
+            return null
+        }
     }
+
+    if (!query || query.length === 0) {
+        return await db.user.findMany({ take, skip });
+    }
+
+
     try {
         const users = await db.user.findMany({
             where: {
                 OR: [
-                    { email: { contains: query, mode: "insensitive" } }, // Case-insensitive search in email
-                    { name: { contains: query, mode: "insensitive" } }, // Case-insensitive search in name
+                    { email: { contains: query, mode: "insensitive" } },
+                    { name: { contains: query, mode: "insensitive" } },
                 ],
             },
-            take: 10, // Limit to 10 results
-        })
+            take,
+            skip,
+        });
         return users
     } catch (e) {
         console.log(e)
@@ -536,11 +574,11 @@ export const getUsersByQuery = async (query?: string) => {
 export const getTotalPremiumUserCount = async () => {
     try {
         const count = await db.user.count({
-            where:{
-                subscriptionCurrendCycleEnd:{
+            where: {
+                subscriptionCurrendCycleEnd: {
                     gte: new Date()
                 }
-            }   
+            }
         })
         return count
     } catch (e) {
@@ -550,55 +588,55 @@ export const getTotalPremiumUserCount = async () => {
 }
 
 export const getTotalWorkoutCount = async () => {
-    try{
+    try {
         const count = await db.workout.count()
         return count
-    }catch(e){
+    } catch (e) {
         console.log(e)
     }
 }
 
 export const getTotalExcerciseCount = async () => {
-    try{
+    try {
         const count = await db.exercise.count()
         return count
-    }catch(e){
+    } catch (e) {
         console.log(e)
     }
 }
 
 export const getTotalMealCount = async () => {
-    try{
+    try {
         const count = await db.meal.count()
         return count
-    }catch(e){
+    } catch (e) {
         console.log(e)
     }
 }
 
 export const getTotalFoodCount = async () => {
-    try{
+    try {
         const count = await db.food.count()
         return count
-    }catch(e){
+    } catch (e) {
         console.log(e)
     }
 }
 
 export const getTotalChatCount = async () => {
-    try{
+    try {
         const count = await db.chat.count()
         return count
-    }catch(e){
+    } catch (e) {
         console.log(e)
     }
 }
 
 export const getTotalMessageCount = async () => {
-    try{
+    try {
         const count = await db.message.count()
         return count
-    }catch(e){
+    } catch (e) {
         console.log(e)
     }
 }

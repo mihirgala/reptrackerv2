@@ -1,5 +1,5 @@
 import { UserTable } from '@/components/protected/admin/user-table'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { getTotalChatCount, getTotalExcerciseCount, getTotalFoodCount, getTotalMealCount, getTotalMessageCount, getTotalPremiumUserCount, getTotalUserCount, getTotalWorkoutCount, getUsersByQuery } from '@/data'
 import { getUser } from '@/lib/auth'
@@ -33,15 +33,7 @@ const AdminPage = async () => {
 
   return (
     <>
-      <div className='md:hidden'>
-        <main className="min-h-[calc(100vh-11rem)] flex gap-5 flex-col">
-          <h1 className={cn("text-3xl font-bold drop-shadow-lg tracking-tight text-center mb-10", fontMontserrat.className)}>Admin Panel</h1>
-          <div className='self-center my-auto'>
-            <h2 className='text-2xl text-center'>This page can only be accessed by a larger device.</h2>
-          </div>
-        </main>
-      </div>
-      <div className='hidden md:block'>
+      <div>
         <main className="min-h-[calc(100vh-11rem)] flex gap-5 flex-col">
           <h1 className={cn("text-3xl font-bold drop-shadow-lg tracking-tight text-center mb-10", fontMontserrat.className)}>Admin Panel</h1>
           <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
@@ -96,7 +88,7 @@ const AdminPage = async () => {
                 </CardContent>
               </Card>
             </div>
-            <Card className='md:col-span-2'>
+            <Card className='hidden md:col-span-2 md:block'>
               <CardHeader>
                 <CardTitle>User Table</CardTitle>
               </CardHeader>
