@@ -9,8 +9,7 @@ import { Features } from "@/components/normal/features"
 import { Metadata } from 'next'
 import { ComparisionComponent } from "@/components/normal/compare"
 import { PricingComponent } from "@/components/normal/pricing"
-import { SiteLogo } from "@/components/logo"
-import { Separator } from "@/components/ui/separator"
+
 
 const fontMontserrat = Montserrat({
   subsets: ["latin"],
