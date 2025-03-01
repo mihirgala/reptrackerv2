@@ -1,5 +1,4 @@
 "use client"
-
 import { buySubscribe } from "@/actions/protected/payments/subscribe"
 import { verifyPayment } from "@/actions/protected/payments/verify"
 import { Button } from "@/components/ui/button"
