@@ -1,6 +1,5 @@
 "use client"
 
-import { getRazorPayPublicKey } from "@/actions/protected/payments/pub_key"
 import { buySubscribe } from "@/actions/protected/payments/subscribe"
 import { verifyPayment } from "@/actions/protected/payments/verify"
 import { Button } from "@/components/ui/button"
@@ -35,7 +34,7 @@ export const SubscribeButton = ({ user }: SubscribeButtonProps) => {
             }
             if (data.success) {
                 const options = {
-                    key: await getRazorPayPublicKey(),
+                    key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
                     subscription_id: data.id,
                     name: "Reptracker",
                     description: "Monthly Premium Plan",
