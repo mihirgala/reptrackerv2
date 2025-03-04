@@ -23,9 +23,8 @@ const fontMontserrat = Montserrat({
 const SettingsPage = async () => {
     const user = await getUser()
     if(!user) return null
-    const subscriptionPromise = getSubscriptionByUserId(user.id!)
-    const personalInfoPromise = getPersonalInfoByUserId(user.id!)
-    const [subscription, personalInfo] = await Promise.all([subscriptionPromise, personalInfoPromise])
+    const [subscription, personalInfo] = await Promise.all([getSubscriptionByUserId(user.id!), getPersonalInfoByUserId(user.id!)])
+    
     if(user.plan === "FREE" && (subscription?.expire_by && new Date(subscription.expire_by) < new Date())){
         await cancelSubscription()
     }

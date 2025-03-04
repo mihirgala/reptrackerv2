@@ -96,18 +96,6 @@ export const SettingsBilling = ({ user, subscription }: SettingsBillingProps) =>
                             </TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableHead>Cycle Started at</TableHead>
-                            <TableCell>
-                                <p>{cycleStartDate}</p>
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableHead>Next Charge Date</TableHead>
-                            <TableCell>
-                                <p>{nextCycleDate}</p>
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
                             <TableHead>Status</TableHead>
                             <TableCell>
                                 <p>{subscription?.status.toLocaleUpperCase()}</p>

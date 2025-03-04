@@ -4,7 +4,6 @@ import { auth } from "@/auth"
 import { getUserById } from "@/data"
 import { db } from "@/lib/db"
 import { razorpay } from "@/lib/razorpay"
-import subscriptions from "razorpay/dist/types/subscriptions"
 
 export const cancelSubscription = async () => {
     try {
