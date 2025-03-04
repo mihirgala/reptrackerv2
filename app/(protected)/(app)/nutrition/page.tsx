@@ -86,7 +86,7 @@ const NutritionPage = async () => {
                     <Card className="md:col-span-1">
                         <CardHeader>
                             <div className="flex justify-between">
-                                <CardTitle>Macro nutrients</CardTitle>
+                                <CardTitle>Macronutrients</CardTitle>
                                 <HoverCard>
                                     <HoverCardTrigger asChild>
                                         <Button className="m-0 p-0 hover:bg-transparent" variant={"ghost"}><Info size={20} /></Button>
@@ -96,7 +96,7 @@ const NutritionPage = async () => {
                                     </HoverCardContent>
                                 </HoverCard>
                             </div>
-                            <CardDescription>This is a general guide for macro nutrients based on major studies but it may vary from person to person</CardDescription>
+                            <CardDescription>This is a general guide for macronutrients based on major studies but it may vary from person to person</CardDescription>
                         </CardHeader>
                         <CardContent>
                             <Table>
