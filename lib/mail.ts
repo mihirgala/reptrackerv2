@@ -105,3 +105,48 @@ export const sendSubscriptionChargedEmail = async (email:string,date:string) => 
         console.error(error)
     }
 }
+
+export const sendSubscriptionCancelledEmail = async (email:string) => {
+    const options = {
+        from: `"${siteConfig.name}" <${process.env.NODEMAILER_EMAIL}>`,
+        to: email,
+        subject: "Subscription Cancelled",
+        html: `<p>Your subscription has been successfully cancelled.</p>`,
+    };
+
+    try {
+        await transporter.sendMail(options);
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export const sendSubscriptionRemindedEmail = async (email:string,shorturl:string) => {
+    const options = {
+        from: `"${siteConfig.name}" <${process.env.NODEMAILER_EMAIL}>`,
+        to: email,
+        subject: "Subscription Reminder",
+        html: `<p>Your subscription is on status: "Pending" please pay <a href=${shorturl}>here</a> to continue.</p>`,
+    };
+
+    try {
+        await transporter.sendMail(options);
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export const sendSubscriptionCancelledDueToHaltedEmail = async (email:string) => {
+    const options = {
+        from: `"${siteConfig.name}" <${process.env.NODEMAILER_EMAIL}>`,
+        to: email,
+        subject: "Subscription Cancelled",
+        html: `<p>Your subscription has been cancelled due to inactivity. Please subscribe again to gain access to premium features by clicking <a href=${`${process.env.BASE_URL}/subscribe`}>here</a>.`,
+    };
+
+    try {
+        await transporter.sendMail(options);
+    } catch (error) {
+        console.error(error)
+    }
+}
