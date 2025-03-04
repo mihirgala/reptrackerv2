@@ -57,15 +57,6 @@ export const SettingsBilling = ({ user, subscription }: SettingsBillingProps) =>
                                             </Button>
                                         </TableCell>
                                     </TableRow>)}
-
-                                    {subscription && (<TableRow>
-                                        <TableHead>Razorpay</TableHead>
-                                        <TableCell>
-                                            <Button asChild>
-                                                <Link className="w-full" target="_blank" href={`${subscription?.short_url}`}>Manage</Link>
-                                            </Button>
-                                        </TableCell>
-                                    </TableRow>)}
                                 </>
                             )}
                         </TableBody>
@@ -102,6 +93,18 @@ export const SettingsBilling = ({ user, subscription }: SettingsBillingProps) =>
                             <TableHead>Subscription ID</TableHead>
                             <TableCell>
                                 <p>{subscription?.id}</p>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableHead>Cycle Started at</TableHead>
+                            <TableCell>
+                                <p>{cycleStartDate}</p>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableHead>Next Charge Date</TableHead>
+                            <TableCell>
+                                <p>{nextCycleDate}</p>
                             </TableCell>
                         </TableRow>
                         <TableRow>
