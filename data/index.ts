@@ -596,7 +596,7 @@ export const getTotalWorkoutCount = async () => {
     }
 }
 
-export const getTotalExcerciseCount = async () => {
+export const getTotalExerciseCount = async () => {
     try {
         const count = await db.exercise.count()
         return count

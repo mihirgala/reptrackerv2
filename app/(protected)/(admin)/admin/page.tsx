@@ -1,7 +1,7 @@
 import { UserTable } from '@/components/protected/admin/user-table'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
-import { getTotalChatCount, getTotalExcerciseCount, getTotalFoodCount, getTotalMealCount, getTotalMessageCount, getTotalPremiumUserCount, getTotalUserCount, getTotalWorkoutCount, getUsersByQuery } from '@/data'
+import { getTotalChatCount, getTotalExerciseCount, getTotalFoodCount, getTotalMealCount, getTotalMessageCount, getTotalPremiumUserCount, getTotalUserCount, getTotalWorkoutCount, getUsersByQuery } from '@/data'
 import { getUser } from '@/lib/auth'
 import { cn } from '@/lib/utils'
 import { Montserrat } from 'next/font/google'
@@ -18,15 +18,27 @@ const AdminPage = async () => {
     return redirect("/dashboard")
   }
 
-  const totalUserCount = await getTotalUserCount()
-  const dbUsers = await getUsersByQuery()
-  const totalPremiumUserCount = await getTotalPremiumUserCount()
-  const totalWorkoutCount = await getTotalWorkoutCount()
-  const totalExcerciseCount = await getTotalExcerciseCount()
-  const totalMealCount = await getTotalMealCount()
-  const totalFoodCount = await getTotalFoodCount()
-  const totalChatCount = await getTotalChatCount()
-  const totalMessageCount = await getTotalMessageCount()
+  const [
+    totalUserCount,
+    dbUsers,
+    totalPremiumUserCount,
+    totalWorkoutCount,
+    totalExerciseCount,
+    totalMealCount,
+    totalFoodCount,
+    totalChatCount,
+    totalMessageCount
+  ] = await Promise.all([
+    getTotalUserCount(),
+    getUsersByQuery(),
+    getTotalPremiumUserCount(),
+    getTotalWorkoutCount(),
+    getTotalExerciseCount(),
+    getTotalMealCount(),
+    getTotalFoodCount(),
+    getTotalChatCount(),
+    getTotalMessageCount()
+  ])
   const totalFreeUserCount = (totalUserCount || 0) - (totalPremiumUserCount || 0)
 
   // console.log(dbUsers)
@@ -44,20 +56,20 @@ const AdminPage = async () => {
                 </CardHeader>
                 <CardContent>
                   <div className='flex px-10 flex-row justify-between'>
-                  <div>
-                  <h2 className={`text-6xl font-extrabold text-center`}>{totalUserCount}</h2>
-                  <p className="text-xl text-center font-bold text-muted-foreground">Total</p>
+                    <div>
+                      <h2 className={`text-6xl font-extrabold text-center`}>{totalUserCount}</h2>
+                      <p className="text-xl text-center font-bold text-muted-foreground">Total</p>
+                    </div>
+                    <div>
+                      <h2 className={`text-6xl font-extrabold text-center text-primary`}>{totalPremiumUserCount}</h2>
+                      <p className="text-xl text-center font-bold text-muted-foreground">Premium</p>
+                    </div>
+                    <div>
+                      <h2 className={`text-6xl font-extrabold text-center`}>{totalFreeUserCount}</h2>
+                      <p className="text-xl text-center font-bold text-muted-foreground">Free</p>
+                    </div>
                   </div>
-                  <div>
-                  <h2 className={`text-6xl font-extrabold text-center text-primary`}>{totalPremiumUserCount}</h2>
-                  <p className="text-xl text-center font-bold text-muted-foreground">Premium</p>
-                  </div>
-                  <div>
-                  <h2 className={`text-6xl font-extrabold text-center`}>{totalFreeUserCount}</h2>
-                  <p className="text-xl text-center font-bold text-muted-foreground">Free</p>
-                  </div>
-                  </div>
-                  <Separator orientation='vertical'/>
+                  <Separator orientation='vertical' />
                 </CardContent>
               </Card>
               <Card>
@@ -65,25 +77,25 @@ const AdminPage = async () => {
                   <CardTitle>Total Stats</CardTitle>
                 </CardHeader>
                 <CardContent>
-                <div className='flex px-10 flex-row justify-between'>
-                  <div>
-                  <h2 className={`text-6xl font-extrabold text-center`}>{totalWorkoutCount}</h2>
-                  <p className="text-xl text-center font-bold text-muted-foreground">Workouts</p>
-                  <h3 className={`text-4xl fond-semibold text-center`}>{totalExcerciseCount}</h3>
-                  <p className="text-xl text-center font-semibold text-muted-foreground">Excercises</p>
-                  </div>
-                  <div>
-                  <h2 className={`text-6xl font-extrabold text-center`}>{totalMealCount}</h2>
-                  <p className="text-xl text-center font-bold text-muted-foreground">Meal Plans</p>
-                  <h3 className={`text-4xl fond-semibold text-center`}>{totalFoodCount}</h3>
-                  <p className="text-xl text-center font-semibold text-muted-foreground">Food Items</p>
-                  </div>
-                  <div>
-                  <h2 className={`text-6xl font-extrabold text-center`}>{totalChatCount}</h2>
-                  <p className="text-xl text-center font-bold text-muted-foreground">Chats</p>
-                  <h3 className={`text-4xl fond-semibold text-center`}>{totalMessageCount}</h3>
-                  <p className="text-xl text-center font-semibold text-muted-foreground">Messages</p>
-                  </div>
+                  <div className='flex px-10 flex-row justify-between'>
+                    <div>
+                      <h2 className={`text-6xl font-extrabold text-center`}>{totalWorkoutCount}</h2>
+                      <p className="text-xl text-center font-bold text-muted-foreground">Workouts</p>
+                      <h3 className={`text-4xl fond-semibold text-center`}>{totalExerciseCount}</h3>
+                      <p className="text-xl text-center font-semibold text-muted-foreground">Excercises</p>
+                    </div>
+                    <div>
+                      <h2 className={`text-6xl font-extrabold text-center`}>{totalMealCount}</h2>
+                      <p className="text-xl text-center font-bold text-muted-foreground">Meal Plans</p>
+                      <h3 className={`text-4xl fond-semibold text-center`}>{totalFoodCount}</h3>
+                      <p className="text-xl text-center font-semibold text-muted-foreground">Food Items</p>
+                    </div>
+                    <div>
+                      <h2 className={`text-6xl font-extrabold text-center`}>{totalChatCount}</h2>
+                      <p className="text-xl text-center font-bold text-muted-foreground">Chats</p>
+                      <h3 className={`text-4xl fond-semibold text-center`}>{totalMessageCount}</h3>
+                      <p className="text-xl text-center font-semibold text-muted-foreground">Messages</p>
+                    </div>
                   </div>
                 </CardContent>
               </Card>

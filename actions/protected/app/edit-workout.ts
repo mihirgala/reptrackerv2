@@ -34,8 +34,7 @@ export const editWorkout = async (values: z.infer<typeof workoutSchema>, workout
                 workoutId: workout.id!
             }
         })
-
-        exercises.map(async (exercise) => {
+        for (const exercise of exercises) {
             await db.exercise.create({
                 data: {
                     name: exercise.name,
@@ -46,7 +45,7 @@ export const editWorkout = async (values: z.infer<typeof workoutSchema>, workout
                     metric: exercise.intensityMetric,
                 }
             })
-        })
+        }
         revalidatePath("/workout")
         return { success: true, message: "Workout edited successfully" }
     } catch (e) {
