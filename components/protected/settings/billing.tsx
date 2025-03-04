@@ -28,7 +28,7 @@ export const SettingsBilling = ({ user, subscription }: SettingsBillingProps) =>
         day: 'numeric',
     }) : null
 
-    if (subscription === null || user.plan == "FREE") {
+    if (subscription === null) {
         return (
             <Card>
                 <CardHeader>
@@ -79,6 +79,47 @@ export const SettingsBilling = ({ user, subscription }: SettingsBillingProps) =>
                     }
                 </CardContent>
             </Card>
+        )
+    }
+    if(subscription && user.plan === "FREE"){
+        return (
+            <Card>
+            <CardHeader>
+                <h2 className="text-lg text-muted-foreground font-bold text-center">Billing</h2>
+            </CardHeader>
+            <CardContent>
+                <Table>
+                    <TableBody>
+                        <TableRow>
+                            <TableHead>Razorpay</TableHead>
+                            <TableCell>
+                                <Button asChild>
+                                    <Link className="w-full" target="_blank" href={`${subscription?.short_url}`}>Manage</Link>
+                                </Button>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableHead>Subscription ID</TableHead>
+                            <TableCell>
+                                <p>{subscription?.id}</p>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableHead>Status</TableHead>
+                            <TableCell>
+                                <p>{subscription?.status.toLocaleUpperCase()}</p>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableHead>{user.plan}</TableHead>
+                            <TableCell>
+                                <CancelSubscriptionButton />
+                            </TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+            </CardContent>
+        </Card>
         )
     }
     return (

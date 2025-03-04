@@ -69,30 +69,30 @@ export const {
                 const subscriptionEndDate = new Date(exisitingUser.subscriptionCurrendCycleEnd)
                 const currentDate = new Date()
                 const userPlan = subscriptionEndDate >= currentDate ? "PREMIUM" : "FREE";
-                if (userPlan === "FREE") {
-                    try {
-                        if (exisitingUser.subscriptionId) {
-                            // const subscription = await razorpay.subscriptions.fetch(exisitingUser.subscriptionId)
-                            // if (subscription.status === "halted") {
-                                await razorpay.subscriptions.cancel(exisitingUser.subscriptionId, false)
-                                await db.user.update({
-                                    where: {
-                                        id: exisitingUser.id
-                                    },
-                                    data: {
-                                        subscriptionId: null,
-                                    }
-                                })
-                            }
-                        // }
-                        await db.user.update({
-                            where: { id: exisitingUser.id },
-                            data: { subscriptionCurrendCycleEnd: null }
-                        })
-                    } catch (e) {
-                        console.log(e)
-                    }
-                }
+                // if (userPlan === "FREE") {
+                //     try {
+                //         if (exisitingUser.subscriptionId) {
+                //             // const subscription = await razorpay.subscriptions.fetch(exisitingUser.subscriptionId)
+                //             // if (subscription.status === "halted") {
+                //                 await razorpay.subscriptions.cancel(exisitingUser.subscriptionId, false)
+                //                 await db.user.update({
+                //                     where: {
+                //                         id: exisitingUser.id
+                //                     },
+                //                     data: {
+                //                         subscriptionId: null,
+                //                     }
+                //                 })
+                //             }
+                //         // }
+                //         await db.user.update({
+                //             where: { id: exisitingUser.id },
+                //             data: { subscriptionCurrendCycleEnd: null }
+                //         })
+                //     } catch (e) {
+                //         console.log(e)
+                //     }
+                // }
                 token.plan = userPlan
                 token.currentEnd = exisitingUser.subscriptionCurrendCycleEnd
             }
