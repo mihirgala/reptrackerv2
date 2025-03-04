@@ -56,7 +56,7 @@ const HomePage = async () => {
           </div>
           <div className="flex flex-col gap-5 mb-10 w-full md:w-[70%]">
             <h2 className={cn("text-5xl font-bold drop-shadow-lg tracking-tight text-center", fontMontserrat.className)}>Compare Plans</h2>
-            <p className="text-foreground text-lg my-0 drop-shadow-lg text-center">Check out our plans in detail and see what&apos; the right fit for you!</p>
+            <p className="text-foreground text-lg my-0 drop-shadow-lg text-center">Check out our plans in detail and see what&apos;s the right fit for you!</p>
             <ComparisionComponent />
           </div>
         </section>

@@ -132,7 +132,7 @@ export const GenerateMealPlan = ({ personalInfoId,macros }: GenerateWorkoutCompo
                                                 <Select onValueChange={field.onChange}>
                                                     <FormControl>
                                                         <SelectTrigger className="md:w-full" disabled={isPending}>
-                                                            <SelectValue placeholder="Vegeterian" />
+                                                            <SelectValue placeholder="Vegetarian without eggs" defaultValue={"VEGETARIAN_WITHOUT_EGGS"}/>
                                                         </SelectTrigger>
                                                     </FormControl>
                                                     <SelectContent>

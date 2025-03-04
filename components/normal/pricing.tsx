@@ -18,7 +18,7 @@ export const PricingComponent = ({ isUser, isPremium = false }: PricingComponent
                 <CardHeader>
                     <h3 className="text-2xl font-extrabold text-center">FREE PLAN</h3>
                     <p className="font-semibold text-muted-foreground text-center">Basic features</p>
-                    <h2 className="text-xl font-extrabold text-center">0 ₹/Month</h2>
+                    <h2 className="text-xl font-extrabold text-center">FREE</h2>
                 </CardHeader>
                 <CardContent>
                     <ul className="list-disc list-outside flex flex-col gap-3">
@@ -44,7 +44,7 @@ export const PricingComponent = ({ isUser, isPremium = false }: PricingComponent
                 <CardHeader>
                     <h3 className="text-2xl font-extrabold text-center text-primary">PREMIUM PLAN</h3>
                     <p className="font-semibold text-muted-foreground text-center">Exclusive features</p>
-                    <h2 className="text-xl font-extrabold text-center">50 ₹/Month</h2>
+                    <h2 className="text-xl font-extrabold text-center">₹50</h2>
                 </CardHeader>
                 <CardContent>
                     <ul className="list-disc list-outside flex flex-col gap-3">

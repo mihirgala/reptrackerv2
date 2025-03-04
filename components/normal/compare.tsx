@@ -1,6 +1,7 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { CheckIcon, Cross1Icon } from "@radix-ui/react-icons"
-import { Card, CardContent, CardHeader } from "../ui/card"
+import { Card, CardContent } from "../ui/card"
+import { CalendarDays } from "lucide-react"
 
 export const ComparisionComponent = () => {
     return (
@@ -35,9 +36,9 @@ export const ComparisionComponent = () => {
                             <TableCell>7</TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableHead>Sharable</TableHead>
+                            <TableHead>Friends</TableHead>
                             <TableCell><Cross1Icon color="red" /></TableCell>
-                            <TableCell><CheckIcon color="green" /></TableCell>
+                            <TableCell className="flex gap-1 items-center"><CalendarDays size={20}/>Soon</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableHead rowSpan={4}>Nutrition Guide</TableHead>

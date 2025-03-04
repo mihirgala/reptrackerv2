@@ -26,7 +26,7 @@ export const TDEEComponent = ({ personalInfo, weight }: TDEEComponentProps) => {
                         </HoverCardContent>
                     </HoverCard>
                 </div>
-                <CardDescription>Acount of calories required by you each day</CardDescription>
+                <CardDescription>The count of calories required by you each day</CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-5">
                 <div>

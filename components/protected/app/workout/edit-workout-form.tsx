@@ -143,7 +143,7 @@ export const EditWorkoutForm = ({ workout, exercises }: EditWorkoutFormProps) =>
                                                     <Select onValueChange={field.onChange}>
                                                         <FormControl>
                                                             <SelectTrigger className="md:w-[120px]" disabled={isPending}>
-                                                                <SelectValue defaultValue={undefined} placeholder="Pick any" />
+                                                                <SelectValue defaultValue={field.value} placeholder={field.value ?? "Pick any"} />
                                                             </SelectTrigger>
                                                         </FormControl>
                                                         <SelectContent>
