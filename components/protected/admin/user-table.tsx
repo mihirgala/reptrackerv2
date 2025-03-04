@@ -93,12 +93,12 @@ export const UserTable = ({ dbUsers }: UserTableProps) => {
                   </Badge>
                 </TableCell>
                 {user.subscriptionCurrendCycleEnd && (<TableCell>{user.subscriptionCurrendCycleEnd.toDateString()}</TableCell>)}
-                <TableCell><UserActions user={user} /></TableCell>
+                <TableCell><UserActions refresh={refresh} user={user} /></TableCell>
               </TableRow>
             )
           })}
           {users.length === 0 && (
-            <TableRow><TableCell colSpan={4} className="text-center">No users found for the following query</TableCell></TableRow>
+            <TableRow><TableCell colSpan={5} className="text-center">No users found for the following query</TableCell></TableRow>
           )}
         </TableBody>
       </Table>

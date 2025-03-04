@@ -2,7 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 import crypto from 'crypto'
 import { getUserBySubscriptionId } from '@/data'
 import { db } from '@/lib/db'
-import { sendSubscriptionCancelledDueToHaltedEmail } from '@/lib/mail';
+import { sendSubscriptionCancelledEmail } from '@/lib/mail';
 import { razorpay } from '@/lib/razorpay';
 
 export const POST = async (req: NextRequest) => {
@@ -35,7 +35,6 @@ export const POST = async (req: NextRequest) => {
             return NextResponse.json({ message: 'User Not Found' }, { status: 404 })
         }
 
-        await razorpay.subscriptions.cancel(subscriptionId, false)
         await db.user.update({
             where: {
                 id: user.id
@@ -45,7 +44,7 @@ export const POST = async (req: NextRequest) => {
             }
         })
 
-        await sendSubscriptionCancelledDueToHaltedEmail(user.email)
+        await sendSubscriptionCancelledEmail(user.email)
 
         return NextResponse.json({ message: 'Success' }, { status: 200 })
     } catch (error) {
