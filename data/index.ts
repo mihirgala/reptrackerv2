@@ -444,11 +444,21 @@ export const getChatsByUserId = async (userId: string) => {
 export const getSystemMessage = async (userId: string) => {
     try {
         if (!userId) {
-            throw new Error("Invalid request: userId is required")
+            throw new Error("Invalid request: userId is required");
         }
-        const personalInfo = await getPersonalInfoByUserId(userId)
-        const dbworkouts = await getWorkoutsByPersonalInfoId(personalInfo?.id!)
-        // console.log(dbworkouts)
+
+        const personalInfo = await getPersonalInfoByUserId(userId);
+        if (!personalInfo) {
+            throw new Error("Personal info not found");
+        }
+
+        // Fetch workouts and weight in parallel as they don't depend on each other
+        const [dbworkouts, weight] = await Promise.all([
+            getWorkoutsByPersonalInfoId(personalInfo.id),
+            getLatestWeightByPersonalInfoId(personalInfo.id)
+        ]);
+
+        // Fetch exercises for workouts in parallel
         const workouts = await Promise.all(dbworkouts?.map(async (workout) => ({
             id: workout.id,
             name: workout.name,
@@ -462,22 +472,28 @@ export const getSystemMessage = async (userId: string) => {
                     metric: true
                 }
             })
-        })) ?? [])
-        const weight = await getLatestWeightByPersonalInfoId(personalInfo?.id!)
-        const tdee = calculateTDEE(personalInfo!, weight as number)
-        const macros = calculateMacros(tdee, personalInfo!.bodyCompositionGoal)
+        })) ?? []);
+
+        // Calculate macros and TDEE in parallel since both depend on personalInfo and weight
+        const [tdee, macros] = await Promise.all([
+            calculateTDEE(personalInfo, weight as number),
+            calculateMacros(calculateTDEE(personalInfo, weight as number), personalInfo.bodyCompositionGoal)
+        ]);
+
         const systemMessage = `
         user's workout plan: ${JSON.stringify(workouts)}
         user's macros: ${JSON.stringify(macros)}
         user's weight: ${weight} kgs
-        user's height: ${personalInfo?.height} centimeters
-        `
-        return systemMessage
+        user's height: ${personalInfo.height} centimeters
+        `;
+
+        return systemMessage;
     } catch (e) {
-        console.error(e)
-        return null
+        console.error(e);
+        return null;
     }
-}
+};
+
 
 export const getChatNameById = async (id: string) => {
     try {

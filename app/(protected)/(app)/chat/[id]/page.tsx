@@ -6,7 +6,7 @@ import React from 'react'
 
 
 interface ChatbotIdPageProps {
-    params: Promise<{ id: string }>
+  params: Promise<{ id: string }>
 }
 
 export async function generateMetadata({ params }: ChatbotIdPageProps) {
@@ -16,28 +16,30 @@ export async function generateMetadata({ params }: ChatbotIdPageProps) {
   }
 }
 
-function convertMessage(messages: { role: "user" | "model" | string; content: string }[]){
-    return messages.map(message => {
-      return {
-        role: message.role,
-        parts: [{ text: message.content }],
-      }
-    })
-  }
+function convertMessage(messages: { role: "user" | "model" | string; content: string }[]) {
+  return messages.map(message => {
+    return {
+      role: message.role,
+      parts: [{ text: message.content }],
+    }
+  })
+}
 
 const ChatbotIdPage = async ({ params }: ChatbotIdPageProps) => {
-    const user = await getUser()
-    const chatId = (await params).id
-    const chat = await getChatbyId(chatId)
-    if (!chat || user?.id !== chat.userId) return redirect("/dashboard")
-    const dbMessages = await getMessagesByChatId(chatId)
-    const chats = await getChatsByUserId(user?.id!)
-    const convertDbMessages = convertMessage(dbMessages!)
-    return (
-            <div className="h-[calc(100vh-5rem)] md:w-[80%] md:mx-auto">
-                <ChatBotComponent chatId={chatId} user={user} chats={chats} isChatName={!!chat?.name} dbMessages={convertDbMessages!} />
-            </div>
-    )
+  const user = await getUser()
+  const chatId = (await params).id
+  const chat = await getChatbyId(chatId)
+  if (!chat || user?.id !== chat.userId) return redirect("/dashboard")
+  const [dbMessages, chats] = await Promise.all([
+    getMessagesByChatId(chatId),
+    getChatsByUserId(user?.id!)
+  ])
+  const convertDbMessages = convertMessage(dbMessages!)
+  return (
+    <div className="h-[calc(100vh-5rem)] md:w-[80%] md:mx-auto">
+      <ChatBotComponent chatId={chatId} user={user} chats={chats} isChatName={!!chat?.name} dbMessages={convertDbMessages!} />
+    </div>
+  )
 }
 
 export default ChatbotIdPage

@@ -9,6 +9,8 @@ export const POST = async (req: NextRequest) => {
     const { newMessages, chatId } = await req.json()
     const chat = await getChatbyId(chatId)
     const user = await getUser()
+    if (!user) return new Response("Unauthorized", { status: 401 })
+    if (user.plan === "FREE") return new Response("Unauthorized", { status: 401 })
     const systemMessage = await getSystemMessage(user?.id!)
     if (!chat) return new Response("Chat not found", { status: 404 });
 
