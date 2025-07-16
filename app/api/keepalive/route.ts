@@ -1,15 +1,21 @@
-import { NextResponse } from "next/server";
-// import { prisma } from "@/lib/prisma"; // adjust path as needed
-import { db } from "@/lib/db";
+import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const authHeader = req.headers.get("Authorization");
+  const expected = `Bearer ${process.env.CRON_SECRET}`;
+
+  if (authHeader !== expected) {
+    return new NextResponse("Unauthorized", { status: 401 });
+  }
+
   try {
-    // Make a lightweight query, like counting rows in a small table
-    await db.user.count(); // Replace 'user' with any small table in your DB
+    // A lightweight query
+    await prisma.user.count(); // Replace `user` with your actual table
 
-    return NextResponse.json({ message: "Ping successful" }, { status: 200 });
+    return NextResponse.json({ message: "Supabase pinged" });
   } catch (error) {
-    console.error("Supabase ping failed", error);
-    return NextResponse.json({ error: "Ping failed" }, { status: 500 });
+    console.error("Cron job failed", error);
+    return new NextResponse("Error", { status: 500 });
   }
 }
