@@ -20,7 +20,7 @@ const AppLayout = async ({ children }: AppLayoutProps) => {
         <div className="mx-5">
           {children}
         </div>
-      </div>e
+      </div>
   )
 }
 export default AppLayout
