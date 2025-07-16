@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { db } from "@/lib/db";
 
 export async function GET(req: NextRequest) {
   const authHeader = req.headers.get("Authorization");
@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
 
   try {
     // A lightweight query
-    await prisma.user.count(); // Replace `user` with your actual table
+    await db.user.count(); // Replace `user` with your actual table
 
     return NextResponse.json({ message: "Supabase pinged" });
   } catch (error) {
